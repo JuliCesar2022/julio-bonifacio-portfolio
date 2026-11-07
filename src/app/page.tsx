@@ -1,18 +1,18 @@
 import type { Metadata } from 'next';
 
 import julio from '@/assets/julio-bonifacio.webp';
-import { About } from '@/components/home/About';
-import { Bento } from '@/components/home/Bento';
-import { Contact } from '@/components/home/Contact';
-import { Hero } from '@/components/home/Hero';
-import { HomeScenes } from '@/components/home/HomeScenes';
-import { Marquee } from '@/components/home/Marquee';
-import { Showcase } from '@/components/home/Showcase';
 import { JsonLd } from '@/components/ui/JsonLd';
+import { routes } from '@/config/routes';
 import { site } from '@/content/site';
+import { About } from '@/features/home/about/About';
+import { Bento } from '@/features/home/bento/Bento';
+import { Contact } from '@/features/home/contact/Contact';
+import { Hero } from '@/features/home/hero/Hero';
+import { Marquee } from '@/features/home/marquee/Marquee';
+import { Showcase } from '@/features/home/showcase/Showcase';
 import { pageMetadata, personJsonLd, websiteJsonLd } from '@/lib/seo';
 
-export const metadata: Metadata = pageMetadata({ description: site.description, path: '/' });
+export const metadata: Metadata = pageMetadata({ description: site.description, path: routes.home });
 
 export default function HomePage() {
   return (
@@ -28,7 +28,6 @@ export default function HomePage() {
         <Marquee />
         <Contact />
       </main>
-      <HomeScenes />
       <JsonLd data={personJsonLd(julio.src)} />
       <JsonLd data={websiteJsonLd()} />
     </>

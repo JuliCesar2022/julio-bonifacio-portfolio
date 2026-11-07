@@ -78,7 +78,7 @@ export type StoryChapter = {
 };
 
 /** Encabezado de las páginas internas: su último carácter se cambia por el ✳ animado */
-export type PageHero = {
+export type PageHeroContent = {
   eyebrow: string;
   title: TwoLineTitle;
   lead: string;
@@ -86,4 +86,4 @@ export type PageHero = {
 };
 
 /** Cierre de las páginas internas */
-export type PageEnd = { title: TwoLineTitle; link: Link };
+export type PageEndContent = { title: TwoLineTitle; link: Link };

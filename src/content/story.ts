@@ -4,7 +4,7 @@ import demoProyecto from '@/assets/galeria/demo-proyecto.webp';
 import posterBloqui from '@/assets/galeria/poster-bloqui.webp';
 import posterCamila from '@/assets/galeria/poster-camila-ai.webp';
 import { homeSection, routes, sections } from '@/config/routes';
-import type { CaptionedPicture, PageEnd, PageHero, StoryChapter } from '@/types/content';
+import type { CaptionedPicture, PageEndContent, PageHeroContent, StoryChapter } from '@/types/content';
 
 import { camilaStats, getProject, projects } from './projects';
 import { site } from './site';
@@ -15,7 +15,7 @@ export const storySeo = {
     'La historia de Julio Bonifacio: estudiante de Ingeniería de Sistemas en Cartagena, sus proyectos y su paso por el Encuentro Nacional de Semilleros.',
 };
 
-export const storyHero: PageHero = {
+export const storyHero: PageHeroContent = {
   eyebrow: 'Mi historia',
   title: { light: 'Un poco de', bold: 'mi camino' },
   lead: 'Cómo un estudiante de Ingeniería de Sistemas en Cartagena terminó presentando sus proyectos en un encuentro nacional de investigación.',
@@ -151,7 +151,7 @@ export const storyChapters: StoryChapter[] = [
   },
 ];
 
-export const storyEnd: PageEnd = {
+export const storyEnd: PageEndContent = {
   title: { light: '¿Construimos algo', bold: 'juntos?' },
   link: { label: 'Volver al portafolio', href: routes.home },
 };

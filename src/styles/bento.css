@@ -13,7 +13,7 @@
     "back status stack";
 }
 
-/* Escritorio: 5 filas para que las columnas de los lados cambien de tamaño al bajar (HomeScenes anima
+/* Escritorio: 5 filas para que las columnas de los lados cambien de tamaño al bajar (BentoScene anima
    --rb, --rc y --rd). Siempre suman lo mismo en el centro (b + c + d), así el proyecto destacado,
    el título y el estado no cambian; a la izquierda crece "5 proyectos" y a la derecha crece "Stack" */
 @media (min-width: 901px) {
@@ -44,7 +44,7 @@
   transition: translate .4s var(--ease), box-shadow .4s var(--ease);
 }
 
-/* translate (no transform) para no chocar con las animaciones de GSAP (HomeScenes) */
+/* translate (no transform) para no chocar con las animaciones de GSAP (BentoScene) */
 .tile:hover { translate: 0 -4px; box-shadow: 0 26px 40px -26px rgb(17 18 22 / .4); }
 
 /* Brillo que sigue al mouse (BentoGrid pone --mx/--my en cada tarjeta y .glow en la cuadrícula).

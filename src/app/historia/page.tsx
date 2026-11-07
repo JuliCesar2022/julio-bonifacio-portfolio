@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
-import { StoryChapter } from '@/components/story/StoryChapter';
-import { StoryEnd } from '@/components/story/StoryEnd';
-import { StoryHero } from '@/components/story/StoryHero';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { routes } from '@/config/routes';
 import { storyChapters, storyCover, storyEnd, storyHero, storySeo } from '@/content/story';
+import { PageEnd } from '@/features/page/PageEnd';
+import { PageHero } from '@/features/page/PageHero';
+import { StoryChapter } from '@/features/story/StoryChapter';
 import { pageMetadata, profilePageJsonLd } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({ ...storySeo, path: routes.story });
@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({ ...storySeo, path: routes.story
 export default function HistoriaPage() {
   return (
     <main className="story">
-      <StoryHero hero={storyHero} />
+      <PageHero hero={storyHero} />
 
       <figure className="story-cover reveal">
         <Image src={storyCover.image} alt={storyCover.alt} sizes="(max-width: 1120px) 92vw, 1030px" preload />
@@ -26,7 +26,7 @@ export default function HistoriaPage() {
         <StoryChapter key={chapter.step} chapter={chapter} />
       ))}
 
-      <StoryEnd end={storyEnd} />
+      <PageEnd end={storyEnd} />
 
       <JsonLd data={profilePageJsonLd(routes.story)} />
     </main>

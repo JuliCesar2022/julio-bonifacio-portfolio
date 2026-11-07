@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
-import { CaseStudy } from '@/components/projects/CaseStudy';
-import { StoryEnd } from '@/components/story/StoryEnd';
-import { StoryHero } from '@/components/story/StoryHero';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { routes } from '@/config/routes';
 import { projectsPage } from '@/content/pages';
 import { projects } from '@/content/projects';
+import { PageEnd } from '@/features/page/PageEnd';
+import { PageHero } from '@/features/page/PageHero';
+import { CaseStudy } from '@/features/projects/CaseStudy';
 import { pageMetadata, projectsJsonLd } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({ ...projectsPage.seo, path: routes.projects });
@@ -16,7 +16,7 @@ export const metadata: Metadata = pageMetadata({ ...projectsPage.seo, path: rout
 export default function ProyectosPage() {
   return (
     <main className="story">
-      <StoryHero hero={projectsPage.hero} />
+      <PageHero hero={projectsPage.hero} />
 
       <ul className="proj-index reveal" aria-label={projectsPage.indexLabel}>
         {projects.map((project) => (
@@ -33,7 +33,7 @@ export default function ProyectosPage() {
         <CaseStudy key={project.slug} project={project} index={i} />
       ))}
 
-      <StoryEnd end={projectsPage.end} />
+      <PageEnd end={projectsPage.end} />
 
       <JsonLd data={projectsJsonLd(routes.projects)} />
     </main>

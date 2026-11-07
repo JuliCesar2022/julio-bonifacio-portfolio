@@ -27,11 +27,12 @@ export function Gallery({ photos }: { photos: Photo[] }) {
 
   return (
     <>
-      <div className="gallery">
+      <div className="gallery" data-anim="gallery">
         {photos.map((photo) => (
           <figure
             key={photo.area}
             className={`photo photo-${photo.area}`}
+            data-anim="photo"
             style={photo.focus ? ({ '--focus': photo.focus } as CSSProperties) : undefined}
           >
             <button className="photo-open" type="button" aria-label={`Ampliar foto: ${photo.label}`} onClick={() => show(photo)}>

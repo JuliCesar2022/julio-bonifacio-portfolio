@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { Fragment } from 'react';
 
-import { Facts } from '@/components/story/Facts';
 import { Blocks } from '@/components/ui/Blocks';
 import { PillLink } from '@/components/ui/PillLink';
+import { Facts } from '@/features/page/Facts';
 import type { Project } from '@/types/content';
 
 /** Video del proyecto con barra de navegador; sin video, la captura */

@@ -50,7 +50,7 @@ export function BentoGrid({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div className="bento" ref={gridRef}>
+    <div className="bento" ref={gridRef} data-anim="grid">
       {children}
     </div>
   );

@@ -52,7 +52,7 @@
 
 .photo-open:focus-visible { outline: 2px solid #fff; outline-offset: -4px; border-radius: inherit; }
 
-/* Un poco más alta que el marco para poder moverla con el scroll (HomeScenes) */
+/* Un poco más alta que el marco para poder moverla con el scroll (AboutScene) */
 .photo img {
   position: absolute;
   top: -3%;

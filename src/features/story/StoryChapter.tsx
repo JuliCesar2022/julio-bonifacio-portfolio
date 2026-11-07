@@ -1,9 +1,8 @@
 import Image from 'next/image';
 
 import { Blocks } from '@/components/ui/Blocks';
+import { Facts } from '@/features/page/Facts';
 import type { StoryChapter as Chapter } from '@/types/content';
-
-import { Facts } from './Facts';
 
 /** Capítulo de "Mi historia": texto y fotos (o ficha de datos) lado a lado */
 export function StoryChapter({ chapter }: { chapter: Chapter }) {

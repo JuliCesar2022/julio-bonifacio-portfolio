@@ -7,6 +7,7 @@ import { about } from '@/content/home';
 import { gallery } from '@/content/gallery';
 import { site } from '@/content/site';
 
+import { AboutScene } from './AboutScene';
 import { Gallery } from './Gallery';
 
 /** Cada palabra en su propio span: el título se enciende palabra por palabra al hacer scroll */
@@ -14,7 +15,9 @@ function Words({ text }: { text: string }) {
   return text.split(' ').map((word, i) => (
     <Fragment key={i}>
       {i > 0 && ' '}
-      <span className="w">{word}</span>
+      <span className="w" data-anim="word">
+        {word}
+      </span>
     </Fragment>
   ));
 }
@@ -28,7 +31,7 @@ const facts = [
 /** Sobre mí (sección oscura) con la galería de fotos */
 export function About() {
   return (
-    <section className="about" id={sections.about}>
+    <AboutScene className="about" id={sections.about}>
       <div className="about-inner">
         <h2 className="about-title">
           <span className="light">
@@ -37,7 +40,7 @@ export function About() {
           <br />
           <Words text={about.title.bold} />
         </h2>
-        <div className="about-card">
+        <div className="about-card" data-anim="card">
           <Image className="avatar" src={julio} alt={site.name} width={64} height={64} unoptimized />
           <p>{about.bio}</p>
           <dl className="facts">
@@ -59,6 +62,6 @@ export function About() {
         </div>
         <Gallery photos={gallery} />
       </div>
-    </section>
+    </AboutScene>
   );
 }

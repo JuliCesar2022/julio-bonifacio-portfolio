@@ -1,8 +1,8 @@
 import { MailButton } from '@/components/ui/MailButton';
-import type { PageEnd } from '@/types/content';
+import type { PageEndContent } from '@/types/content';
 
 /** Cierre de las páginas internas: invitación a escribir */
-export function StoryEnd({ end }: { end: PageEnd }) {
+export function PageEnd({ end }: { end: PageEndContent }) {
   return (
     <section className="story-end reveal">
       <h2>

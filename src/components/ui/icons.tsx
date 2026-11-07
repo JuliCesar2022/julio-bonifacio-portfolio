@@ -83,7 +83,7 @@ export function PenIcon() {
 /** Flecha curva de la vitrina (se dibuja con el scroll) */
 export function CurvedArrow() {
   return (
-    <svg className="arrow" viewBox="0 0 140 120" aria-hidden="true">
+    <svg className="arrow" viewBox="0 0 140 120" aria-hidden="true" data-anim="arrow">
       <path pathLength={1} d="M16 4 V58 Q16 102 60 102 H126" />
       <path pathLength={1} d="M112 88 L128 102 L112 116" />
     </svg>

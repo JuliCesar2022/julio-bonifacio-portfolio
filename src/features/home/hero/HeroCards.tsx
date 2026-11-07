@@ -9,7 +9,7 @@ const heroProjects = hero.cards.map(getProject);
 const foregroundProject = getProject(hero.foregroundCard);
 
 // Cada tarjeta toma la proporción de su captura para verse completa, sin recortes.
-// --i es su puesto en la cascada (0 = adelante); HomeScenes lo anima al turnarlas
+// --i es su puesto en la cascada (0 = adelante); HeroScene lo anima al turnarlas
 const cardStyle = (project: Project, i: number) =>
   ({ '--i': i, aspectRatio: `${project.shot.width} / ${project.shot.height}` }) as CSSProperties;
 
@@ -17,11 +17,14 @@ const cardStyle = (project: Project, i: number) =>
 export function HeroCards() {
   return (
     <>
-      <div className="stack" aria-hidden="true">
+      <div className="stack" aria-hidden="true" data-anim="stack">
         <div className="stack-float">
-          <div className="stack-inner">
+          <div className="stack-inner" data-anim="stack-inner">
             {heroProjects.map((project, i) => (
-              <div key={project.slug} className={`card3d c${i + 1} has-shot`} style={cardStyle(project, i)}>
+              <div key={project.slug} className={`card3d c${i + 1} has-shot`}
+                style={cardStyle(project, i)}
+                data-anim="card"
+              >
                 <Image
                   className="card-shot"
                   src={project.shot}
@@ -39,7 +42,7 @@ export function HeroCards() {
       </div>
 
       {/* Tarjeta grande y borrosa en primer plano, para dar profundidad */}
-      <div className="fg-wrap" aria-hidden="true">
+      <div className="fg-wrap" aria-hidden="true" data-anim="foreground">
         <div className="card3d card-fg c3 has-shot" style={cardStyle(foregroundProject, 3)}>
           <Image
             className="card-shot"

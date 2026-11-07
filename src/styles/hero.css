@@ -63,7 +63,7 @@
 .hero-fade { animation: fade-up .9s var(--ease) 1.7s both; }
 
 /* Tarjetas 3D: las dibuja CSS, no son imágenes.
-   --spread, --lift y --twist los anima HomeScenes al hacer scroll */
+   --spread, --lift y --twist los anima HeroScene al hacer scroll */
 /* Ocupa el espacio libre entre el menú y el título.
    --area = alto de la portada menos menú y bloque del título (~470px); con eso se miden las tarjetas */
 .stack {

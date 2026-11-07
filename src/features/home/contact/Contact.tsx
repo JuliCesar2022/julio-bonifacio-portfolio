@@ -4,6 +4,8 @@ import { sections } from '@/config/routes';
 import { contact } from '@/content/home';
 import { site, whatsappUrl } from '@/content/site';
 
+import { ContactScene } from './ContactScene';
+
 // Un enlace vacío (ej. el CV en site.ts) no se muestra
 const links = [
   { label: 'GitHub', href: site.socials.github },
@@ -13,7 +15,7 @@ const links = [
 
 export function Contact() {
   return (
-    <section className="contact" id={sections.contact}>
+    <ContactScene className="contact" id={sections.contact}>
       <div className="contact-copy reveal">
         <p className="eyebrow">{contact.eyebrow}</p>
         <h2 className="h2">
@@ -39,10 +41,10 @@ export function Contact() {
         </ul>
       </div>
       <div className="contact-art" aria-hidden="true">
-        <span className="pill p1" />
-        <span className="pill p2" />
-        <span className="ring" />
+        <span className="pill p1" data-anim="pill-1" />
+        <span className="pill p2" data-anim="pill-2" />
+        <span className="ring" data-anim="ring" />
       </div>
-    </section>
+    </ContactScene>
   );
 }

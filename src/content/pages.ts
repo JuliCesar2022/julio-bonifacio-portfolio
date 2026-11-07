@@ -1,6 +1,6 @@
 // Textos de las páginas internas que no son de un proyecto ni de Mi historia.
 import { homeSection, routes, sections } from '@/config/routes';
-import type { PageEnd, PageHero } from '@/types/content';
+import type { PageEndContent, PageHeroContent } from '@/types/content';
 
 export const projectsPage = {
   seo: {
@@ -13,12 +13,12 @@ export const projectsPage = {
     title: { light: 'Lo que he', bold: 'construido' },
     lead: 'Cinco proyectos, de la investigación a empresas reales: qué problema resuelve cada uno, qué construí y cómo se ve funcionando.',
     back: { label: 'Volver al portafolio', href: homeSection(sections.projects) },
-  } satisfies PageHero,
+  } satisfies PageHeroContent,
   indexLabel: 'Ir a un proyecto',
   end: {
     title: { light: '¿Tienes un proyecto', bold: 'en mente?' },
     link: { label: 'Conoce mi historia', href: routes.story },
-  } satisfies PageEnd,
+  } satisfies PageEndContent,
 };
 
 export const notFoundPage = {

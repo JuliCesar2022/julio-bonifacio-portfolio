@@ -8,6 +8,7 @@ import { site } from '@/content/site';
 import { stack } from '@/content/stack';
 
 import { BentoGrid } from './BentoGrid';
+import { BentoScene } from './BentoScene';
 
 // Alturas de las barras del bloque "Backend" (decorativas)
 const bars = ['35%', '60%', '45%', '80%', '65%', '100%'];
@@ -18,7 +19,7 @@ const years = site.experienceYears;
 /** Proyectos y habilidades: cuadrícula de tarjetas (bento grid) */
 export function Bento() {
   return (
-    <section className="section" id={sections.projects}>
+    <BentoScene className="section" id={sections.projects}>
       <div className="section-head reveal">
         <p className="eyebrow">{bento.eyebrow}</p>
         <h2 className="h2">
@@ -27,7 +28,7 @@ export function Bento() {
       </div>
 
       <BentoGrid>
-        <article className="tile tile-num">
+        <article data-anim="tile" className="tile tile-num">
           <div className="glass" aria-hidden="true">
             <span />
             <span />
@@ -37,11 +38,11 @@ export function Bento() {
           <p className="tile-text">{bento.projectsLabel}</p>
         </article>
 
-        <article className="tile tile-pill">
+        <article data-anim="tile" className="tile tile-pill">
           <p className="tile-title">{bento.pill}</p>
         </article>
 
-        <article className="tile tile-years">
+        <article data-anim="tile" className="tile tile-years">
           <pre className="code" aria-hidden="true">
             {`const me = {\n  yearsCoding: ${years},\n  coffee: Infinity,\n};`}
           </pre>
@@ -49,7 +50,7 @@ export function Bento() {
           <p className="tile-text">{bento.yearsLabel}</p>
         </article>
 
-        <article className="tile tile-feat">
+        <article data-anim="tile" className="tile tile-feat">
           <p className="tile-kicker">{bento.featured.kicker}</p>
           <div className="mock">
             <div className="mock-bar" aria-hidden="true">
@@ -75,8 +76,8 @@ export function Bento() {
           </div>
         </article>
 
-        <article className="tile tile-back">
-          <div className="bars" aria-hidden="true">
+        <article data-anim="tile" className="tile tile-back">
+          <div className="bars" aria-hidden="true" data-anim="bars">
             {bars.map((h, j) => (
               <span key={j} style={{ '--h': h, '--j': j } as CSSProperties} />
             ))}
@@ -85,7 +86,7 @@ export function Bento() {
           <p className="tile-text">{bento.backend.text}</p>
         </article>
 
-        <article className="tile tile-stack">
+        <article data-anim="tile" className="tile tile-stack">
           <div className="orb" aria-hidden="true" />
           <h3 className="tile-h">{bento.stackTitle}</h3>
           <ul className="chips">
@@ -98,7 +99,7 @@ export function Bento() {
           </ul>
         </article>
 
-        <article className="tile tile-status">
+        <article data-anim="tile" className="tile tile-status">
           <p>
             <span className="dot" aria-hidden="true" /> {bento.status.label}
           </p>
@@ -107,6 +108,6 @@ export function Bento() {
           </a>
         </article>
       </BentoGrid>
-    </section>
+    </BentoScene>
   );
 }

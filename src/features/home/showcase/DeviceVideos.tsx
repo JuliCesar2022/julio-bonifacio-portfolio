@@ -50,7 +50,7 @@ export function DeviceVideos({ videos: { desktop, phone }, href }: Props) {
   }, []);
 
   return (
-    <div className="devices" ref={groupRef}>
+    <div className="devices" ref={groupRef} data-anim="devices">
       <div className="laptop">
         <div className="laptop-screen">
           <video
@@ -78,7 +78,7 @@ export function DeviceVideos({ videos: { desktop, phone }, href }: Props) {
         <div className="laptop-base" />
       </div>
 
-      <div className="phone">
+      <div className="phone" data-anim="phone">
         <span className="island" />
         <video
           ref={phoneRef}

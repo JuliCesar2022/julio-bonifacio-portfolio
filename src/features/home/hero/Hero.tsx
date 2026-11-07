@@ -4,16 +4,17 @@ import { sections } from '@/config/routes';
 import { hero } from '@/content/home';
 
 import { HeroCards } from './HeroCards';
+import { HeroScene } from './HeroScene';
 import { TypedTitle } from './TypedTitle';
 
 const TAG_ICONS = { code: CodeIcon, database: DatabaseIcon, pen: PenIcon };
 
 export function Hero() {
   return (
-    <section className="hero" id={sections.top}>
+    <HeroScene className="hero" id={sections.top}>
       <HeroCards />
 
-      <div className="hero-copy">
+      <div className="hero-copy" data-anim="copy">
         <p className="eyebrow">{hero.eyebrow}</p>
         <TypedTitle
           label={hero.title.label}
@@ -37,6 +38,6 @@ export function Hero() {
           })}
         </ul>
       </div>
-    </section>
+    </HeroScene>
   );
 }

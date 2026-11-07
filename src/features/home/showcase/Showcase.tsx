@@ -4,6 +4,7 @@ import { CurvedArrow } from '@/components/ui/icons';
 import { showcase } from '@/content/home';
 
 import { DeviceVideos } from './DeviceVideos';
+import { ShowcaseScene } from './ShowcaseScene';
 
 /** Líneas delgadas una debajo de otra y la última en negrita */
 function Lines({ lines }: { lines: readonly string[] }) {
@@ -19,9 +20,9 @@ function Lines({ lines }: { lines: readonly string[] }) {
 export function Showcase() {
   const { left, right, cta, note } = showcase;
   return (
-    <section className="showcase" aria-labelledby="showcase-title">
+    <ShowcaseScene className="showcase" aria-labelledby="showcase-title">
       <div className="showcase-inner">
-        <div className="showcase-side showcase-left">
+        <div className="showcase-side showcase-left" data-anim="left">
           <h2 className="showcase-text" id="showcase-title">
             <span className="light">
               <Lines lines={left.lines} />
@@ -34,7 +35,7 @@ export function Showcase() {
 
         <DeviceVideos videos={showcase.videos} href={cta.href} />
 
-        <div className="showcase-side showcase-right">
+        <div className="showcase-side showcase-right" data-anim="right">
           <h2 className="showcase-text">
             <span className="star" aria-hidden="true">
               ✳
@@ -56,6 +57,6 @@ export function Showcase() {
           <p>{note}</p>
         </div>
       </div>
-    </section>
+    </ShowcaseScene>
   );
 }

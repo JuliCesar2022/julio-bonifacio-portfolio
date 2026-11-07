@@ -1,8 +1,8 @@
 import { sections } from '@/config/routes';
-import type { PageHero } from '@/types/content';
+import type { PageHeroContent } from '@/types/content';
 
 /** Encabezado de las páginas internas: la última letra del título se cambia por el ✳ animado */
-export function StoryHero({ hero }: { hero: PageHero }) {
+export function PageHero({ hero }: { hero: PageHeroContent }) {
   const { bold, light } = hero.title;
   return (
     <header className="story-hero" id={sections.top}>

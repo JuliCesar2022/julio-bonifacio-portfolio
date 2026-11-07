@@ -1,16 +1,18 @@
 import { marquee } from '@/content/home';
 
-/** Letras gigantes que se deslizan con el scroll (HomeScenes) */
+import { MarqueeScene } from './MarqueeScene';
+
+/** Letras gigantes que se deslizan con el scroll */
 export function Marquee() {
   return (
-    <section className="marquee" aria-hidden="true">
-      <div className="marquee-track" data-marquee>
+    <MarqueeScene className="marquee" aria-hidden="true">
+      <div className="marquee-track" data-anim="track">
         <span>{marquee.word}</span>
         <span className="star">✳</span>
         <span className="grad">{marquee.word}</span>
         <span className="star">✳</span>
         <span>{marquee.word}</span>
       </div>
-    </section>
+    </MarqueeScene>
   );
 }
