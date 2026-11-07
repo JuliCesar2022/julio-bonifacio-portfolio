@@ -1,18 +1,28 @@
 // Ayudas de SEO: metadatos por página y datos estructurados (JSON-LD) para Google.
 import type { Metadata } from 'next';
+import type { StaticImageData } from 'next/image';
 
+import defaultShareImage from '@/assets/og/portafolio.jpg';
 import { projects } from '@/content/projects';
 import { site } from '@/content/site';
 import { stack } from '@/content/stack';
 
-type PageSeo = { title?: string; description: string; path: string };
+type ShareImage = { image: StaticImageData; alt: string };
+type PageSeo = { title?: string; description: string; path: string; share?: ShareImage };
+
+/** Imagen al compartir el sitio en redes (1200×630) */
+const DEFAULT_SHARE: ShareImage = {
+  image: defaultShareImage,
+  alt: `${site.name}, ${site.role.toLowerCase()} en Cartagena: "${site.tagline}", con capturas de Camila AI, Bloqui, Cecar y el CRM de Cecar.`,
+};
 
 /**
  * Metadatos completos de una página. Next reemplaza (no mezcla) el bloque openGraph del layout,
- * así que cada página lo arma entero aquí. La imagen para redes sale de app/opengraph-image.png.
+ * así que cada página lo arma entero aquí, imagen para redes incluida.
  */
-export function pageMetadata({ title, description, path }: PageSeo): Metadata {
+export function pageMetadata({ title, description, path, share = DEFAULT_SHARE }: PageSeo): Metadata {
   const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.role} en Cartagena`;
+  const images = [{ url: share.image.src, width: share.image.width, height: share.image.height, alt: share.alt }];
   return {
     title: title ?? { absolute: fullTitle },
     description,
@@ -24,8 +34,9 @@ export function pageMetadata({ title, description, path }: PageSeo): Metadata {
       url: path,
       title: fullTitle,
       description,
+      images,
     },
-    twitter: { card: 'summary_large_image', title: fullTitle, description },
+    twitter: { card: 'summary_large_image', title: fullTitle, description, images },
   };
 }
 

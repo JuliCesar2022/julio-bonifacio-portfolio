@@ -1,21 +1,10 @@
 // Galería de "Sobre mí". Para agregar una foto: guárdala en src/assets/galeria y ponla aquí.
 // area = a (grande), b, c (vertical) o d; focus mueve el encuadre (X% Y%) para no cortar caras.
-import type { StaticImageData } from 'next/image';
-
 import demoProyecto from '@/assets/galeria/demo-proyecto.webp';
 import feriaUniversitaria from '@/assets/galeria/feria-universitaria.webp';
 import posterBloqui from '@/assets/galeria/poster-bloqui.webp';
 import posterCamila from '@/assets/galeria/poster-camila-ai.webp';
-
-export type Photo = {
-  area: 'a' | 'b' | 'c' | 'd';
-  image: StaticImageData;
-  alt: string;
-  /** Texto del botón para lectores de pantalla: "Ampliar foto: …" */
-  label: string;
-  caption: string;
-  focus?: string;
-};
+import type { Photo } from '@/types/content';
 
 // EDITA: los textos de cada foto con el proyecto y el evento reales
 export const gallery: Photo[] = [

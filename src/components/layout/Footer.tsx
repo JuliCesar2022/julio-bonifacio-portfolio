@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import { ChatIcon, GitHubIcon, InstagramIcon, LinkedInIcon, MailIcon } from '@/components/ui/icons';
 import { Logo } from '@/components/ui/Logo';
+import { homeSection, sections } from '@/config/routes';
 import { mailUrl, site, whatsappUrl } from '@/content/site';
 
 type Social = { label: string; href: string; icon: ReactNode; external?: boolean };
@@ -19,7 +20,7 @@ export function Footer() {
     <footer className="footer">
       <div className="footer-top">
         <div className="footer-brand">
-          <Logo href="/#inicio" />
+          <Logo href={homeSection(sections.top)} />
           <p>{site.tagline}</p>
         </div>
         <ul className="footer-social" aria-label="Redes y contacto">
@@ -43,7 +44,7 @@ export function Footer() {
         <span>
           © {site.updated.slice(0, 4)} {site.name}
         </span>
-        <a href="#inicio">Volver arriba ↑</a>
+        <a href={`#${sections.top}`}>Volver arriba ↑</a>
       </div>
     </footer>
   );

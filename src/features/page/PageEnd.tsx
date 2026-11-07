@@ -1,20 +1,19 @@
 import { MailButton } from '@/components/ui/MailButton';
-
-type Props = { light: string; bold: string; link: { label: string; href: string } };
+import type { PageEnd } from '@/types/content';
 
 /** Cierre de las páginas internas: invitación a escribir */
-export function StoryEnd({ light, bold, link }: Props) {
+export function StoryEnd({ end }: { end: PageEnd }) {
   return (
     <section className="story-end reveal">
       <h2>
-        <span className="light">{light}</span>
+        <span className="light">{end.title.light}</span>
         <br />
-        {bold}
+        {end.title.bold}
       </h2>
       <div className="contact-actions">
         <MailButton />
-        <a className="btn btn-ghost" href={link.href}>
-          {link.label}
+        <a className="btn btn-ghost" href={end.link.href}>
+          {end.link.label}
         </a>
       </div>
     </section>

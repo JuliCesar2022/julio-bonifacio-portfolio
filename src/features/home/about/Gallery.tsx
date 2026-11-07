@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useRef, useState, type CSSProperties } from 'react';
 
-import type { Photo } from '@/content/gallery';
+import type { Photo } from '@/types/content';
 
 // Ancho que ocupa cada foto del mosaico. object-fit: cover recorta, así que las celdas altas
 // (a y c) necesitan una imagen más ancha que la celda

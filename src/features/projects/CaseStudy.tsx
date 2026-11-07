@@ -1,7 +1,10 @@
 import Image from 'next/image';
+import { Fragment } from 'react';
 
 import { Facts } from '@/components/story/Facts';
-import type { Project } from '@/content/projects';
+import { Blocks } from '@/components/ui/Blocks';
+import { PillLink } from '@/components/ui/PillLink';
+import type { Project } from '@/types/content';
 
 /** Video del proyecto con barra de navegador; sin video, la captura */
 function CaseMedia({ project }: { project: Project }) {
@@ -35,8 +38,11 @@ function CaseMedia({ project }: { project: Project }) {
   );
 }
 
-/** Un proyecto en /proyectos: encabezado, video y detalle */
+/** Un proyecto: encabezado, video y detalle */
 export function CaseStudy({ project, index }: { project: Project; index: number }) {
+  const links = [project.link, project.repo ? { label: 'Código', href: project.repo } : undefined].filter(
+    (link) => link !== undefined,
+  );
   return (
     <article className="case reveal" id={project.slug}>
       <header className="case-head">
@@ -50,18 +56,11 @@ export function CaseStudy({ project, index }: { project: Project; index: number 
             ))}
           </ul>
         </div>
-        {(project.link || project.repo) && (
+        {links.length > 0 && (
           <div className="case-links">
-            {project.link && (
-              <a className="pill-link" href={project.link.href} target="_blank" rel="noopener">
-                {project.link.label} <span aria-hidden="true">↗</span>
-              </a>
-            )}
-            {project.repo && (
-              <a className="pill-link" href={project.repo} target="_blank" rel="noopener">
-                Código <span aria-hidden="true">↗</span>
-              </a>
-            )}
+            {links.map((link) => (
+              <PillLink key={link.href} link={link} />
+            ))}
           </div>
         )}
       </header>
@@ -70,22 +69,12 @@ export function CaseStudy({ project, index }: { project: Project; index: number 
 
       <div className="case-body">
         <div className="story-text case-text">
-          <h3>El reto</h3>
-          {project.challenge}
-
-          <h3>Lo que construí</h3>
-          <ul className="case-list">
-            {project.built.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-
-          {project.extra && (
-            <>
-              <h3>{project.extra.title}</h3>
-              {project.extra.content}
-            </>
-          )}
+          {project.sections.map((section) => (
+            <Fragment key={section.title}>
+              <h3>{section.title}</h3>
+              <Blocks blocks={section.blocks} listClassName="case-list" />
+            </Fragment>
+          ))}
         </div>
         <Facts items={project.facts} className="case-aside story-facts" />
       </div>

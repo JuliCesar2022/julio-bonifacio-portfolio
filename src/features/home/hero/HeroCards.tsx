@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import type { CSSProperties } from 'react';
 
-import { foregroundProject, heroProjects, type Project } from '@/content/projects';
+import { hero } from '@/content/home';
+import { getProject } from '@/content/projects';
+import type { Project } from '@/types/content';
+
+const heroProjects = hero.cards.map(getProject);
+const foregroundProject = getProject(hero.foregroundCard);
 
 // Cada tarjeta toma la proporción de su captura para verse completa, sin recortes.
 // --i es su puesto en la cascada (0 = adelante); HomeScenes lo anima al turnarlas

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   keywords: [...site.keywords],
-  robots: { index: true, follow: true },
+  // Sin "robots": por defecto todo se indexa, y la 404 queda con noindex (lo pone Next)
   icons: {
     icon: [
       { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },

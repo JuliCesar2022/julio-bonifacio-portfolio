@@ -1,14 +1,10 @@
-// Resultados de la validación de Camila AI con 8 expertos en psicología
-const stats = [
-  { value: '96%', label: 'usabilidad' },
-  { value: '88%', label: 'validez clínica' },
-  { value: '88%', label: 'adaptabilidad' },
-];
+import type { Stat } from '@/types/content';
 
-export function Stats() {
+/** Cifras destacadas (ej. resultados de la validación de Camila AI) */
+export function Stats({ items }: { items: Stat[] }) {
   return (
     <div className="story-stats">
-      {stats.map((stat) => (
+      {items.map((stat) => (
         <div className="stat" key={stat.label}>
           <b>{stat.value}</b>
           <span>{stat.label}</span>

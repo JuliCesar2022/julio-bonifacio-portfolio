@@ -1,7 +1,10 @@
 import Image from 'next/image';
 import type { CSSProperties } from 'react';
 
-import { featuredProject, projects } from '@/content/projects';
+import { routes, sections } from '@/config/routes';
+import { bento } from '@/content/home';
+import { getProject, projects } from '@/content/projects';
+import { site } from '@/content/site';
 import { stack } from '@/content/stack';
 
 import { BentoGrid } from './BentoGrid';
@@ -9,14 +12,17 @@ import { BentoGrid } from './BentoGrid';
 // Alturas de las barras del bloque "Backend" (decorativas)
 const bars = ['35%', '60%', '45%', '80%', '65%', '100%'];
 
+const featured = getProject(bento.featured.slug);
+const years = site.experienceYears;
+
 /** Proyectos y habilidades: cuadrícula de tarjetas (bento grid) */
 export function Bento() {
   return (
-    <section className="section" id="proyectos">
+    <section className="section" id={sections.projects}>
       <div className="section-head reveal">
-        <p className="eyebrow">Lo que hago</p>
+        <p className="eyebrow">{bento.eyebrow}</p>
         <h2 className="h2">
-          <span className="light">Proyectos y</span> habilidades
+          <span className="light">{bento.title.light}</span> {bento.title.bold}
         </h2>
       </div>
 
@@ -28,48 +34,41 @@ export function Bento() {
             <span />
           </div>
           <p className="big">{projects.length}</p>
-          <p className="tile-text">proyectos entregados</p>
+          <p className="tile-text">{bento.projectsLabel}</p>
         </article>
 
         <article className="tile tile-pill">
-          <p className="tile-title">Full stack · Web y móvil</p>
+          <p className="tile-title">{bento.pill}</p>
         </article>
 
         <article className="tile tile-years">
           <pre className="code" aria-hidden="true">
-            {'const me = {\n  yearsCoding: 2,\n  coffee: Infinity,\n};'}
+            {`const me = {\n  yearsCoding: ${years},\n  coffee: Infinity,\n};`}
           </pre>
-          <p className="big">+2</p>
-          <p className="tile-text">años programando</p>
+          <p className="big">+{years}</p>
+          <p className="tile-text">{bento.yearsLabel}</p>
         </article>
 
         <article className="tile tile-feat">
-          <p className="tile-kicker">Proyecto destacado</p>
+          <p className="tile-kicker">{bento.featured.kicker}</p>
           <div className="mock">
             <div className="mock-bar" aria-hidden="true">
               <i />
               <i />
               <i />
             </div>
-            <Image
-              className="mock-shot"
-              src={featuredProject.shot}
-              alt={featuredProject.shotAlt}
-              sizes="(max-width: 900px) 92vw, 480px"
-            />
+            <Image className="mock-shot" src={featured.shot} alt={featured.shotAlt} sizes="(max-width: 900px) 92vw, 480px" />
           </div>
-          <h3 className="tile-h">{featuredProject.name}</h3>
-          <p className="tile-text">
-            Web de una agencia de tours en Cartagena: catálogo de tours con buscador, testimonios e inicio de sesión.
-          </p>
+          <h3 className="tile-h">{featured.name}</h3>
+          <p className="tile-text">{bento.featured.summary}</p>
           <div className="tile-actions">
-            {featuredProject.link && (
-              <a className="btn btn-light" href={featuredProject.link.href} target="_blank" rel="noopener">
-                Ver demo
+            {featured.link && (
+              <a className="btn btn-light" href={featured.link.href} target="_blank" rel="noopener">
+                {featured.link.label}
               </a>
             )}
-            {featuredProject.repo && (
-              <a className="btn btn-ghost" href={featuredProject.repo} target="_blank" rel="noopener">
+            {featured.repo && (
+              <a className="btn btn-ghost" href={featured.repo} target="_blank" rel="noopener">
                 Código
               </a>
             )}
@@ -82,13 +81,13 @@ export function Bento() {
               <span key={j} style={{ '--h': h, '--j': j } as CSSProperties} />
             ))}
           </div>
-          <h3 className="tile-h">Backend</h3>
-          <p className="tile-text">APIs, autenticación y bases de datos.</p>
+          <h3 className="tile-h">{bento.backend.title}</h3>
+          <p className="tile-text">{bento.backend.text}</p>
         </article>
 
         <article className="tile tile-stack">
           <div className="orb" aria-hidden="true" />
-          <h3 className="tile-h">Stack</h3>
+          <h3 className="tile-h">{bento.stackTitle}</h3>
           <ul className="chips">
             {stack.map((tech) => (
               <li key={tech.name}>
@@ -101,10 +100,10 @@ export function Bento() {
 
         <article className="tile tile-status">
           <p>
-            <span className="dot" aria-hidden="true" /> Disponible para proyectos
+            <span className="dot" aria-hidden="true" /> {bento.status.label}
           </p>
-          <a className="btn btn-dark" href="/proyectos">
-            Ver todos mis proyectos <span aria-hidden="true">→</span>
+          <a className="btn btn-dark" href={routes.projects}>
+            {bento.status.cta} <span aria-hidden="true">→</span>
           </a>
         </article>
       </BentoGrid>

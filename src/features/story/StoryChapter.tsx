@@ -1,32 +1,21 @@
-import Image, { type StaticImageData } from 'next/image';
-import type { ReactNode } from 'react';
+import Image from 'next/image';
 
-export type ChapterPhoto = { image: StaticImageData; alt: string; caption: string };
+import { Blocks } from '@/components/ui/Blocks';
+import type { StoryChapter as Chapter } from '@/types/content';
 
-type Props = {
-  step: string;
-  title: string;
-  children: ReactNode;
-  /** Fotos al lado del texto */
-  photos?: ChapterPhoto[];
-  /** Contenido a la derecha en vez de fotos (ej. la ficha de datos) */
-  aside?: ReactNode;
-  /** Fotos a la izquierda */
-  flip?: boolean;
-  /** Fotos en dos columnas (si no, una debajo de otra) */
-  sideBySide?: boolean;
-};
+import { Facts } from './Facts';
 
-/** Capítulo de "Mi historia": texto y fotos lado a lado */
-export function StoryChapter({ step, title, children, photos, aside, flip, sideBySide }: Props) {
+/** Capítulo de "Mi historia": texto y fotos (o ficha de datos) lado a lado */
+export function StoryChapter({ chapter }: { chapter: Chapter }) {
+  const { step, title, blocks, photos, sideBySide, facts, flip } = chapter;
   return (
     <section className={flip ? 'story-chapter flip reveal' : 'story-chapter reveal'}>
       <div className="story-text">
         <span className="story-step">{step}</span>
         <h2>{title}</h2>
-        {children}
+        <Blocks blocks={blocks} />
       </div>
-      {aside}
+      {facts && <Facts items={facts} />}
       {photos && (
         <div className={sideBySide ? 'story-media two' : 'story-media'}>
           {photos.map((photo) => (

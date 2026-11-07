@@ -1,7 +1,10 @@
 import { WhatsAppLogo } from '@/components/ui/icons';
 import { MailButton } from '@/components/ui/MailButton';
+import { sections } from '@/config/routes';
+import { contact } from '@/content/home';
 import { site, whatsappUrl } from '@/content/site';
 
+// Un enlace vacío (ej. el CV en site.ts) no se muestra
 const links = [
   { label: 'GitHub', href: site.socials.github },
   { label: 'LinkedIn', href: site.socials.linkedin },
@@ -10,19 +13,19 @@ const links = [
 
 export function Contact() {
   return (
-    <section className="contact" id="contacto">
+    <section className="contact" id={sections.contact}>
       <div className="contact-copy reveal">
-        <p className="eyebrow">Contacto</p>
+        <p className="eyebrow">{contact.eyebrow}</p>
         <h2 className="h2">
-          <span className="light">¿Tienes un proyecto?</span>
+          <span className="light">{contact.title.light}</span>
           <br />
-          Escríbeme
+          {contact.title.bold}
         </h2>
         <div className="contact-actions">
           <MailButton />
           <a className="wa-btn" href={whatsappUrl} target="_blank" rel="noopener">
             <WhatsAppLogo />
-            WhatsApp
+            {contact.whatsapp}
           </a>
         </div>
         <ul className="socials">

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 
-const CAMILA_URL = 'https://camilai.com';
+type Video = { src: string; poster: string; label: string };
+type Props = { videos: { desktop: Video; phone: Video }; href: string };
 
 /**
  * PC y celular con los videos de Camila AI (hechos con Remotion en C:\dev\video-camila).
@@ -12,7 +13,7 @@ const CAMILA_URL = 'https://camilai.com';
  *   el del PC manda y el del celular lo sigue.
  * - Con "reducir movimiento" no se descargan: queda la portada quieta.
  */
-export function DeviceVideos() {
+export function DeviceVideos({ videos: { desktop, phone }, href }: Props) {
   const groupRef = useRef<HTMLDivElement>(null);
   const pcRef = useRef<HTMLVideoElement>(null);
   const phoneRef = useRef<HTMLVideoElement>(null);
@@ -55,18 +56,18 @@ export function DeviceVideos() {
           <video
             ref={pcRef}
             className="screen-video"
-            data-src="/videos/camila-pc.mp4"
-            poster="/videos/camila-pc-poster.webp"
+            data-src={desktop.src}
+            poster={desktop.poster}
             muted
             loop
             playsInline
             preload="none"
-            aria-label="Demo de Camila AI: inicio de sesión, panel, chat y reportes"
+            aria-label={desktop.label}
           />
           {/* Clic en la pantalla abre Camila AI (el botón de abajo es el enlace accesible) */}
           <a
             className="screen-link"
-            href={CAMILA_URL}
+            href={href}
             target="_blank"
             rel="noopener"
             tabIndex={-1}
@@ -82,17 +83,17 @@ export function DeviceVideos() {
         <video
           ref={phoneRef}
           className="screen-video"
-          data-src="/videos/camila-movil.mp4"
-          poster="/videos/camila-movil-poster.webp"
+          data-src={phone.src}
+          poster={phone.poster}
           muted
           loop
           playsInline
           preload="none"
-          aria-label="Demo de Camila AI en celular: chat, llamada y contenido"
+          aria-label={phone.label}
         />
         <a
           className="screen-link"
-          href={CAMILA_URL}
+          href={href}
           target="_blank"
           rel="noopener"
           tabIndex={-1}

@@ -7,9 +7,11 @@
     "dev": "next dev",
     "prebuild": "node scripts/image-variants.mjs",
     "build": "next build",
+    "preview": "node scripts/serve-out.mjs",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit",
-    "preview": "npx serve@14 out"
+    "pretypecheck": "node scripts/image-variants.mjs",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -19,6 +21,7 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.65.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -1,8 +1,7 @@
 // Datos personales y enlaces: se usan en el menú, el pie, contacto y el SEO.
 // EDITA aquí y cambia en todo el sitio.
 
-// Dominio público (sin "/" al final). Viene de .env.production o de la variable de build en Dokploy
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, '');
+import { SITE_URL } from '@/lib/env';
 
 export const site = {
   url: SITE_URL,
@@ -31,6 +30,8 @@ export const site = {
   studies: 'Ingeniería de Sistemas',
   university: 'Universidad del Sinú, Seccional Cartagena',
   languages: 'Español, inglés básico',
+  /** Años programando (bento, Mi historia) */
+  experienceYears: 2,
   email: 'juliobonifacio53@gmail.com',
   whatsapp: {
     number: '573026736193',
