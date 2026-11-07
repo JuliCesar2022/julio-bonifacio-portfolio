@@ -1,0 +1,196 @@
+/* ---------- Portada ---------- */
+
+.hero {
+  position: relative;
+  min-height: clamp(600px, 100svh, 960px);
+  padding: 88px max(var(--pad-x), calc((100% - var(--max)) / 2 + var(--pad-x))) 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: clip;
+}
+
+.hero-copy { position: relative; z-index: 1; max-width: 980px; }
+
+.hero-title {
+  font-size: clamp(2.4rem, min(5.6vw, 9svh), 4.6rem);
+  line-height: 1.04;
+  letter-spacing: -.035em;
+}
+
+/* balance: si una línea no cabe (celular), reparte las palabras parejo en vez de dejar una sola abajo */
+.line { position: relative; display: block; text-wrap: balance; }
+.line-light { font-weight: 300; }
+.line-bold { font-weight: 800; }
+.ghost { visibility: hidden; }
+.typed { position: absolute; inset: 0; }
+.ph { color: #b4b8c4; font-weight: 700; letter-spacing: .04em; }
+.hero-title .star { animation: spin 8s linear infinite; }
+
+.hero-sub strong { color: var(--ink); font-weight: 600; }
+
+.hero-sub {
+  max-width: 60ch;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+}
+
+.hero-tags {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-top: 28px;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.hero-tags li { display: flex; align-items: center; gap: 8px; }
+
+.hero-tags svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hero-fade { animation: fade-up .9s var(--ease) 1.7s both; }
+
+/* Tarjetas 3D: las dibuja CSS, no son imágenes.
+   --spread, --lift y --twist los anima HomeScenes al hacer scroll */
+/* Ocupa el espacio libre entre el menú y el título.
+   --area = alto de la portada menos menú y bloque del título (~470px); con eso se miden las tarjetas */
+.stack {
+  --area: calc(clamp(600px, 100svh, 960px) - 470px);
+  --gx: clamp(30px, 5vw, 80px);
+  --gy: calc(var(--area) * .035);
+  --spread: 1;
+  --lift: 0px;
+  --twist: 0deg;
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 200px;
+  margin-bottom: 16px;
+  /* Son decorativas: que no se puedan seleccionar ni arrastrar sus imágenes */
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.stack img,
+.fg-wrap img { -webkit-user-drag: none; user-select: none; }
+
+.stack-float { position: absolute; inset: 0; animation: float 7s ease-in-out infinite; }
+
+.stack-inner { position: absolute; left: 55%; top: 50%; }
+
+/* La de adelante arriba a la izquierda; las demás en cascada hacia atrás, abajo a la derecha.
+   will-change: se animan todo el tiempo (entrada, turnos, scroll); así el navegador las prepara una vez */
+.stack .card3d {
+  will-change: transform, opacity;
+  /* +58px: pueden subir hasta ~30px del borde (arriba el menú es transparente y sus enlaces van a los lados) */
+  width: clamp(170px, min(36vw, var(--area) + 58px), 600px);
+  z-index: calc(10 - var(--i));
+  translate: -50% -50%;
+  transform:
+    perspective(1400px)
+    translate(
+      calc((var(--i) - 2) * var(--gx) * var(--spread) + var(--ex)),
+      calc((var(--i) - 2) * var(--gy) * var(--spread) - var(--i) * var(--lift) + var(--ey))
+    )
+    scale(calc((1 - var(--i) * .04) * var(--es)))
+    rotateX(14deg) rotateY(-28deg) rotateZ(calc(-10deg - var(--i) * var(--twist) + var(--er)));
+}
+
+.card3d {
+  position: absolute;
+  width: clamp(200px, 24vw, 360px);
+  aspect-ratio: 1.586;
+  border-radius: 18px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 40px 60px -30px rgb(40 30 110 / .45);
+  /* Entrada: vuelan desde abajo a la derecha; la de adelante llega primero */
+  animation: card-in 1.9s cubic-bezier(.16, 1, .3, 1) both;
+  animation-delay: calc(.15s + var(--i) * .13s);
+}
+
+.card3d::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgb(255 255 255 / .45), transparent 42%, rgb(0 0 0 / .08));
+  pointer-events: none;
+}
+
+.c1 {
+  background:
+    radial-gradient(80% 120% at 85% 10%, rgb(255 255 255 / .55), transparent 55%),
+    conic-gradient(from 210deg at 35% 65%, #3d5afe, #8e6cff, #ff5fa2, #ffb36b, #3d5afe);
+}
+
+.c2 { background: linear-gradient(135deg, #ffffff, #e6e9f3); color: var(--ink); }
+
+.c3 { background: radial-gradient(circle at 70% 40%, #ff8ad1 0 9%, #8e6cff 24%, #2433c9 48%, #0b1a7a 80%); }
+
+.c4 { background: repeating-linear-gradient(100deg, #ff4d5e 0 16px, #ff9a3c 16px 32px, #3d5afe 32px 48px, #ffffff 48px 64px); }
+
+.c5 { background: linear-gradient(150deg, #d6e3ff, #5b8bff 45%, #1f3bd6); }
+
+/* Captura del proyecto: cubre la tarjeta (HeroCards agrega .has-shot y la proporción de la imagen) */
+.card-shot {
+  position: absolute;
+  inset: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.card-name { position: absolute; z-index: 1; display: none; }
+
+.card-name {
+  left: 12px;
+  bottom: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / .92);
+  color: var(--ink);
+  font-size: .75rem;
+  font-weight: 700;
+  box-shadow: 0 6px 16px -6px rgb(17 18 22 / .4);
+}
+
+/* Con captura la tarjeta toma la forma de la imagen (más baja), así que puede ser más ancha */
+.stack .card3d.has-shot { width: clamp(170px, min(42vw, (var(--area) + 58px) * 1.18), 680px); }
+
+.card3d.has-shot .card-shot,
+.card3d.has-shot .card-name { display: block; }
+
+.fg-wrap {
+  position: absolute;
+  right: -90px;
+  bottom: -40px;
+  filter: blur(3px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.card-fg {
+  position: relative;
+  width: clamp(260px, 30vw, 440px);
+  transform: perspective(1200px) rotateX(24deg) rotateY(-30deg) rotateZ(-26deg);
+  animation: fg-in 2.2s cubic-bezier(.16, 1, .3, 1) .55s both;
+}

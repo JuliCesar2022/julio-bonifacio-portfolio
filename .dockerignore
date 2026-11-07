@@ -1,0 +1,11 @@
+# Lo que no hace falta para compilar dentro de Docker
+node_modules
+.next
+out
+dist
+.git
+*.log
+.env*.local
+# Se generan dentro del build (scripts/image-variants.mjs)
+public/_img
+src/lib/image-variants.json

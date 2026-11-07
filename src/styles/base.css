@@ -1,0 +1,59 @@
+:root {
+  --bg: #eceef2;
+  --surface: #f7f8fa;
+  --ink: #111216;
+  --muted: #646873; /* gris de textos secundarios: contraste AA (4.8:1) sobre el fondo */
+  --line: #d9dce3;
+  --dark: #0c0d10;
+  --dark-2: #17181d;
+  --holo: linear-gradient(115deg, #3d5afe 0%, #8e6cff 30%, #ff5fa2 60%, #ff9a3c 85%, #3d5afe 100%);
+  --radius: 22px;
+  --pad-x: clamp(16px, 4vw, 48px);
+  --max: 1320px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --font: var(--font-jakarta), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Variables registradas para poder animarlas: entrada de las tarjetas (desplazamiento, escala, giro) */
+@property --ex { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --ey { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --es { syntax: "<number>"; inherits: false; initial-value: 1; }
+@property --er { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+
+* { box-sizing: border-box; margin: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+a { color: inherit; }
+
+/* next/image escribe width/height en el HTML (reserva el espacio mientras carga);
+   el alto real lo deciden el CSS y la proporción de cada imagen */
+img { height: auto; }
+
+.eyebrow {
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.light { font-weight: 300; }
+
+.star {
+  display: inline-block;
+  background: var(--holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

@@ -1,0 +1,156 @@
+/* ---------- Página: mi historia (/historia) ---------- */
+
+.story { max-width: 1120px; margin: 0 auto; padding: 120px var(--pad-x) 32px; }
+
+.story-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.story-back:hover { color: var(--ink); }
+
+.story-hero { max-width: 780px; }
+
+.story-title {
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+
+.story-title .star { animation: spin 8s linear infinite; }
+
+.story-lead { max-width: 54ch; margin-top: 20px; color: var(--muted); font-size: clamp(1.05rem, 1.6vw, 1.25rem); }
+
+.story-cover { margin: clamp(36px, 6vw, 64px) 0 0; }
+
+.story-cover img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: 0 30px 60px -30px rgb(17 18 22 / .45);
+}
+
+.story figcaption { margin-top: 10px; color: var(--muted); font-size: .85rem; text-align: center; }
+
+/* Capítulo: texto y fotos lado a lado; .flip pone las fotos a la izquierda */
+.story-chapter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 64px);
+  padding: clamp(56px, 9vw, 110px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.story-cover + .story-chapter { margin-top: clamp(40px, 6vw, 72px); }
+.story-chapter.flip .story-media { order: -1; }
+.story-chapter > .story-text:only-child { grid-column: 1 / -1; max-width: 720px; }
+
+.story-step {
+  background: var(--holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: .85rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+}
+
+.story-text h2 {
+  margin: 10px 0 18px;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.035em;
+}
+
+.story-text p { color: #3c4049; font-size: 1.05rem; line-height: 1.7; }
+.story-text p + p, .story-stats + p { margin-top: 14px; }
+
+/* Palabras clave resaltadas con un subrayado grueso del degradado */
+.story-text strong {
+  color: var(--ink);
+  font-weight: 700;
+  background: linear-gradient(transparent 62%, rgb(142 108 255 / .22) 0);
+}
+
+.pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 22px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: .88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: translate .3s var(--ease);
+}
+
+.pill-link:hover { translate: 0 -2px; }
+
+.story-media { display: grid; gap: 18px; }
+.story-media.two { grid-template-columns: 1fr 1fr; }
+.story-media figure { margin: 0; }
+
+.story-media img {
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 24px 50px -28px rgb(17 18 22 / .45);
+}
+
+.story-media.two img { aspect-ratio: 3 / 4; object-fit: cover; }
+
+.story-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 0;
+  padding: 26px;
+  border-radius: var(--radius);
+  background: var(--dark);
+  color: #fff;
+}
+
+.story-facts dt { color: rgb(255 255 255 / .5); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+.story-facts dd { margin: 4px 0 0; font-size: 1.1rem; font-weight: 700; }
+
+.story-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+
+.stat { padding: 16px; border-radius: 16px; background: var(--dark); color: rgb(255 255 255 / .7); font-size: .85rem; }
+
+.stat b {
+  display: block;
+  background: var(--holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.story-end {
+  margin-top: clamp(20px, 4vw, 40px);
+  padding: clamp(36px, 6vw, 64px);
+  border-radius: 32px;
+  background-color: var(--dark);
+  background-image: radial-gradient(55% 80% at 85% 10%, rgb(61 90 254 / .3), transparent 60%);
+  color: #fff;
+}
+
+.story-end h2 { font-size: clamp(2rem, 4.6vw, 3.4rem); font-weight: 800; line-height: 1.05; letter-spacing: -.035em; }
+.story-end .light { color: rgb(255 255 255 / .7); }
+.story-end .mail { background: #fff; color: var(--ink); }

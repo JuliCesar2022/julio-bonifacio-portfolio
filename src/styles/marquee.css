@@ -1,0 +1,26 @@
+/* ---------- Letras gigantes ---------- */
+
+.marquee { overflow: hidden; padding: clamp(40px, 8vw, 96px) 0; }
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: .25em;
+  width: max-content;
+  padding-left: var(--pad-x);
+  font-size: clamp(5rem, 18vw, 16rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.05em;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.marquee .star { font-size: .45em; }
+
+.marquee .grad {
+  background: var(--holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- El ✳ del logo: 4 trazos cruzados con el degradado del portafolio -->
+  <defs>
+    <linearGradient id="holo" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3d5afe"/>
+      <stop offset=".35" stop-color="#8e6cff"/>
+      <stop offset=".7" stop-color="#ff5fa2"/>
+      <stop offset="1" stop-color="#ff9a3c"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#holo)" stroke-width="9" stroke-linecap="round">
+    <path d="M32 6v52M6 32h52M13.6 13.6l36.8 36.8M50.4 13.6 13.6 50.4"/>
+  </g>
+</svg>

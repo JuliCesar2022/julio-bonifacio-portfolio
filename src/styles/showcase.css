@@ -1,0 +1,155 @@
+/* ---------- Vitrina: PC + celular sobre pared de bloques ---------- */
+
+.showcase {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 32px 32px 0 0;
+  box-shadow: 0 -30px 60px -30px rgb(17 18 22 / .35);
+  color: #fff;
+  background-color: #0b0c0e;
+  /* Cada bloque: luz arriba/izquierda, sombra abajo/derecha */
+  background-image:
+    radial-gradient(55% 55% at 50% 45%, rgb(61 90 254 / .18), transparent 70%),
+    linear-gradient(180deg, rgb(255 255 255 / .07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / .05) 1px, transparent 1px),
+    linear-gradient(0deg, rgb(0 0 0 / .6) 2px, transparent 2px),
+    linear-gradient(270deg, rgb(0 0 0 / .5) 2px, transparent 2px),
+    linear-gradient(135deg, #1d1e23, #0f1013);
+  background-size: auto, 84px 84px, 84px 84px, 84px 84px, 84px 84px, 84px 84px;
+}
+
+/* Piso de bloques en perspectiva */
+.showcase::before {
+  content: "";
+  position: absolute;
+  left: -25%;
+  right: -25%;
+  bottom: 0;
+  height: 40%;
+  background-color: #15161a;
+  background-image:
+    linear-gradient(rgb(255 255 255 / .08) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / .08) 1px, transparent 1px);
+  background-size: 84px 84px;
+  transform: perspective(500px) rotateX(58deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, #000 35%, transparent);
+}
+
+.showcase-inner {
+  position: relative;
+  z-index: 1;
+  /* Más ancha que el resto de la página: el PC tiene que verse grande para que se lea el proyecto */
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 128px) var(--pad-x);
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 3fr) minmax(0, .9fr);
+  align-items: center;
+  gap: clamp(16px, 3vw, 40px);
+}
+
+.showcase-text {
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+.showcase-text .light { color: rgb(255 255 255 / .7); }
+.showcase-right { justify-self: end; text-align: right; }
+
+.arrow {
+  width: clamp(90px, 10vw, 140px);
+  margin-top: 24px;
+  fill: none;
+  stroke: rgb(255 255 255 / .55);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.showcase-right .arrow { transform: scaleX(-1); }
+
+.devices { position: relative; padding-bottom: 4%; }
+
+.laptop { width: 86%; }
+
+/* content-box: el 16:10 es de la pantalla sin el borde, igual que el video (1440x900), así no se recorta */
+.laptop-screen {
+  position: relative;
+  box-sizing: content-box;
+  aspect-ratio: 16 / 10;
+  border: clamp(6px, .9vw, 12px) solid #1b1c21;
+  border-bottom-width: clamp(12px, 1.6vw, 20px);
+  border-radius: 18px 18px 6px 6px;
+  background: #f4f5f8;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / .08), 0 50px 80px -30px rgb(0 0 0 / .8);
+}
+
+.laptop-base {
+  position: relative;
+  width: 112%;
+  height: clamp(10px, 1.4vw, 18px);
+  margin-left: -6%;
+  border-radius: 2px 2px 16px 16px;
+  background: linear-gradient(#dfe2e9, #8b8f9a);
+}
+
+.laptop-base::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 16%;
+  height: 40%;
+  translate: -50% 0;
+  border-radius: 0 0 8px 8px;
+  background: #6f737d;
+}
+
+.phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 26%;
+  /* Misma forma que el video del celular (780x1688), sin contar el borde: así no se recorta */
+  box-sizing: content-box;
+  aspect-ratio: 780 / 1688;
+  border: clamp(5px, .7vw, 9px) solid #111214;
+  border-radius: clamp(22px, 3vw, 38px);
+  background: #0e0f13;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / .14), 0 40px 70px -20px rgb(0 0 0 / .9);
+}
+
+.island {
+  position: absolute;
+  z-index: 2;
+  top: 2.5%;
+  left: 50%;
+  width: 32%;
+  height: 3.2%;
+  translate: -50% 0;
+  border-radius: 999px;
+  background: #000;
+}
+
+/* Video de un proyecto dentro de una pantalla (mismo formato que la pantalla, 16:10) */
+.screen-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Enlace invisible encima de cada pantalla: clic en el video abre el proyecto */
+.screen-link { position: absolute; inset: 0; z-index: 1; cursor: pointer; }
+
+/* Botón debajo del PC y el celular (fila nueva de la columna central) */
+.showcase-cta { grid-column: 2; display: grid; justify-items: center; gap: 10px; margin-top: 8px; }
+.showcase-cta .btn { gap: 8px; }
+.showcase-cta p { color: rgb(255 255 255 / .6); font-size: .9rem; }

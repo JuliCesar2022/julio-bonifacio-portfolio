@@ -1,0 +1,17 @@
+/* Estilos globales, en el mismo orden de la cascada original.
+   Cada archivo es una sección de la página; responsive.css y el bloque de "reducir movimiento"
+   van al final porque ajustan reglas de todas las secciones. */
+@import "../styles/base.css";
+@import "../styles/ui.css";
+@import "../styles/nav.css";
+@import "../styles/hero.css";
+@import "../styles/showcase.css";
+@import "../styles/bento.css";
+@import "../styles/about.css";
+@import "../styles/gallery.css";
+@import "../styles/story.css";
+@import "../styles/projects-page.css";
+@import "../styles/marquee.css";
+@import "../styles/contact-footer.css";
+@import "../styles/motion.css";
+@import "../styles/responsive.css";
