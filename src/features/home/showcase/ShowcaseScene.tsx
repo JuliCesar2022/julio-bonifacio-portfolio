@@ -3,7 +3,6 @@
 import type { ComponentProps } from 'react';
 
 import { useScrollScene, type SceneSetup } from '@/components/motion/useScrollScene';
-import { gsap } from '@/lib/gsap';
 
 /** Vitrina con sus animaciones: el PC sube y crece, el celular entra girando, los textos llegan de los lados */
 export function ShowcaseScene(props: ComponentProps<'section'>) {
@@ -11,7 +10,7 @@ export function ShowcaseScene(props: ComponentProps<'section'>) {
   return <section ref={ref} {...props} />;
 }
 
-const showcaseScene: SceneSetup = ({ root, q }) => {
+const showcaseScene: SceneSetup = ({ root, q, gsap }) => {
   const [left] = q('left');
   const [right] = q('right');
 

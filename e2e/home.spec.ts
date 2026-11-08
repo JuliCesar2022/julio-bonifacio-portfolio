@@ -27,7 +27,8 @@ test('las tarjetas de la portada se turnan', async ({ page }) => {
 test('las tarjetas del bento aparecen al hacer scroll', async ({ page }) => {
   await page.goto('/');
   const featured = '#proyectos article';
-  expect(await opacity(page, featured, 'Proyecto destacado')).toBeLessThan(0.5);
+  // Las animaciones de las secciones de abajo se preparan cuando la página termina de cargar
+  await expect.poll(() => opacity(page, featured, 'Proyecto destacado')).toBeLessThan(0.5);
   await page.locator(featured, { hasText: 'Proyecto destacado' }).scrollIntoViewIfNeeded();
   await page.mouse.wheel(0, 300);
   await expect.poll(() => opacity(page, featured, 'Proyecto destacado'), { timeout: 6000 }).toBeGreaterThan(0.95);

@@ -2,16 +2,17 @@
 
 import type { ComponentProps } from 'react';
 
-import { useScrollScene, type SceneSetup } from '@/components/motion/useScrollScene';
-import { gsap, ScrollTrigger } from '@/lib/gsap';
+import { useScrollScene, type SceneContext, type SceneSetup } from '@/components/motion/useScrollScene';
 
 /** Portada con sus animaciones: las tarjetas se abren al bajar y se turnan solas */
 export function HeroScene(props: ComponentProps<'section'>) {
-  const ref = useScrollScene<HTMLElement>(heroScene);
+  // Se ve apenas abre la página: sus animaciones se preparan al montar
+  const ref = useScrollScene<HTMLElement>(heroScene, { defer: false });
   return <section ref={ref} {...props} />;
 }
 
-const heroScene: SceneSetup = ({ root, q }) => {
+const heroScene: SceneSetup = (scene) => {
+  const { root, q, gsap } = scene;
   // Mientras la vitrina sube, las tarjetas se abren en abanico y el título se aleja
   gsap
     .timeline({
@@ -23,14 +24,14 @@ const heroScene: SceneSetup = ({ root, q }) => {
     .to(q('foreground'), { y: -380, rotate: -14 }, 0)
     .to(q('copy'), { y: -40, scale: 0.94, opacity: 0.2, transformOrigin: 'left bottom' }, 0);
 
-  return cycleCards(root, q('card'));
+  return cycleCards(scene, q('card'));
 };
 
 /**
  * Las tarjetas se turnan: la de adelante sale volando hacia arriba a la izquierda, las demás
  * avanzan un puesto y la que salió reaparece al fondo. Devuelve la función que lo detiene.
  */
-function cycleCards(root: HTMLElement, cards: HTMLElement[]) {
+function cycleCards({ root, gsap, ScrollTrigger }: SceneContext, cards: HTMLElement[]) {
   const deck = [...cards]; // deck[0] = la de adelante
   if (!deck.length) return;
 

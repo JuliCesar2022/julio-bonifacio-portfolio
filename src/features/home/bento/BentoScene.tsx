@@ -2,18 +2,17 @@
 
 import type { ComponentProps } from 'react';
 
-import { useScrollScene, type SceneSetup } from '@/components/motion/useScrollScene';
-import { gsap } from '@/lib/gsap';
+import { useScrollScene, type SceneSetup, type ScreenScenes } from '@/components/motion/useScrollScene';
 
 /** Proyectos y habilidades con sus animaciones: las tarjetas llegan desde afuera y cambian de tamaño */
 export function BentoScene(props: ComponentProps<'section'>) {
-  const ref = useScrollScene<HTMLElement>(tilesScene, { '(min-width: 901px)': resizeScene });
+  const ref = useScrollScene<HTMLElement>(tilesScene, { byScreen: SCREENS });
   return <section ref={ref} {...props} />;
 }
 
 // Cada tarjeta llega desde afuera (según su columna) y se acomoda en su lugar.
 // Se mide con la cuadrícula (que no se mueve) para que las tarjetas animadas no alteren el cálculo
-const tilesScene: SceneSetup = ({ q }) => {
+const tilesScene: SceneSetup = ({ q, gsap }) => {
   const [grid] = q('grid');
   if (!grid) return;
 
@@ -57,7 +56,7 @@ const tilesScene: SceneSetup = ({ q }) => {
 
 // Solo escritorio: al bajar, las tarjetas de los lados cambian de tamaño.
 // Las filas b, c y d siempre suman lo mismo, así la columna del centro no se mueve
-const resizeScene: SceneSetup = ({ q }) => {
+const resizeScene: SceneSetup = ({ q, gsap }) => {
   const [grid] = q('grid');
   gsap.to(grid, {
     '--rb': '130px',
@@ -68,3 +67,5 @@ const resizeScene: SceneSetup = ({ q }) => {
     scrollTrigger: { trigger: grid, start: 'top 15%', end: 'top -35%', scrub: 1 },
   });
 };
+
+const SCREENS: ScreenScenes = { '(min-width: 901px)': resizeScene };

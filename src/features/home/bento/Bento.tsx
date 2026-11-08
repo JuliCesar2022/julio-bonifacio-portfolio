@@ -41,6 +41,7 @@ export function Bento() {
         </article>
 
         <article data-anim="tile" className={cx(styles.tile, styles.pill)}>
+          <span className={styles.holo} aria-hidden="true" />
           <p className={styles.title}>{bento.pill}</p>
         </article>
 

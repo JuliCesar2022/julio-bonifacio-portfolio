@@ -3,7 +3,6 @@
 import type { ComponentProps } from 'react';
 
 import { useScrollScene, type SceneSetup } from '@/components/motion/useScrollScene';
-import { gsap } from '@/lib/gsap';
 
 /** Contacto con sus animaciones: las figuras se mueven a distinta velocidad (profundidad) */
 export function ContactScene(props: ComponentProps<'section'>) {
@@ -11,7 +10,7 @@ export function ContactScene(props: ComponentProps<'section'>) {
   return <section ref={ref} {...props} />;
 }
 
-const contactScene: SceneSetup = ({ root, q }) => {
+const contactScene: SceneSetup = ({ root, q, gsap }) => {
   gsap
     .timeline({
       scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: 1 },

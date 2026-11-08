@@ -122,11 +122,20 @@
   align-items: center;
   color: #fff;
   background: var(--holo);
-  background-size: 200% 100%;
-  animation: holo-shift 10s ease-in-out infinite alternate;
 }
 
-.title { font-size: 1.2rem; font-weight: 700; letter-spacing: -.01em; }
+/* El degradado se desliza de lado a lado: es una capa el doble de ancha que se mueve con translate
+   (lo hace la tarjeta gráfica; animar background-position repintaba la tarjeta en cada cuadro) */
+.holo {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 200%;
+  background: var(--holo);
+  animation: holo-shift 10s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.title { position: relative; font-size: 1.2rem; font-weight: 700; letter-spacing: -.01em; }
 
 .years { grid-area: years; color: #fff; background: var(--dark-2); }
 
@@ -252,7 +261,7 @@
 
 /* ---------- Animaciones ---------- */
 
-@keyframes holo-shift { to { background-position: 100% 0; } }
+@keyframes holo-shift { to { translate: -50% 0; } }
 
 @keyframes pulse {
   70% { box-shadow: 0 0 0 10px rgb(34 197 94 / 0); }

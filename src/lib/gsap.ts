@@ -1,10 +1,10 @@
 'use client';
 
-// GSAP con sus plugins registrados una sola vez. Las animaciones importan desde aquí, no desde 'gsap'.
-import { useGSAP } from '@gsap/react';
+// GSAP con ScrollTrigger registrado. No se importa directo: useScrollScene lo carga con import()
+// después del arranque, así no pesa en la carga inicial (y con "reducir movimiento" ni se descarga).
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger);
 
-export { gsap, ScrollTrigger, useGSAP };
+export { gsap, ScrollTrigger };

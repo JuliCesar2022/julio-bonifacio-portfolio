@@ -74,7 +74,10 @@ scripts/                  generador de imágenes y servidor de vista previa
 
 **Animaciones:** cada sección anima solo sus propios elementos, marcados con `data-anim="…"`
 (no con clases CSS, así cambiar estilos no rompe animaciones). `useScrollScene` las crea solo si
-el sistema permite movimiento y las deshace al salir.
+el sistema permite movimiento y las deshace al salir. Para que la carga no se trabe en celulares:
+- GSAP se descarga aparte (`import()`), fuera del JavaScript inicial.
+- Las secciones de abajo preparan sus animaciones cuando la página terminó de cargar y el navegador
+  está libre, una por vez (`whenIdle`), o al primer scroll. La portada las prepara al montar.
 
 ## SEO incluido
 
@@ -87,17 +90,19 @@ el sistema permite movimiento y las deshace al salir.
 - Las direcciones viejas redirigen: `historia.html` → `/historia` (Nginx) y `/proyectos#camila`
   → `/proyectos/camila-ai`.
 
-## Rendimiento (Lighthouse, 6 nov 2026)
+## Rendimiento (Lighthouse)
 
 | Página               | Celular | Escritorio | Accesibilidad | SEO |
 | -------------------- | ------- | ---------- | ------------- | --- |
-| Portada              | 90–91   | 100        | 100           | 100 |
+| Portada              | 99      | 100        | 100           | 100 |
 | Mi historia          | 97      | —          | 100           | 100 |
 | Proyectos            | 99      | —          | 100           | 100 |
 
 - La portada pesa ~380 KB al abrir: los videos de la vitrina se descargan recién cuando se ven.
 - Imágenes responsivas (versiones de 256 a 1080 px) y portadas de video en WebP.
-- Lo que más pesa en celular es el primer cálculo de las animaciones de scroll de GSAP.
+- Bloqueo del procesador al cargar (celular simulado): ~90 ms (antes 1,7 s).
+- La entrada de las tarjetas anima variables CSS a propósito: con transform directo la mueve la
+  tarjeta gráfica, pero Chrome toma la captura como LCP recién al final (~6 s) y baja el puntaje.
 
 ## Publicar en Dokploy
 

@@ -3,7 +3,6 @@
 import type { ComponentProps } from 'react';
 
 import { useScrollScene, type SceneSetup } from '@/components/motion/useScrollScene';
-import { gsap } from '@/lib/gsap';
 
 /** Sobre mí con sus animaciones: el título se enciende palabra por palabra y las fotos suben */
 export function AboutScene(props: ComponentProps<'section'>) {
@@ -11,7 +10,7 @@ export function AboutScene(props: ComponentProps<'section'>) {
   return <section ref={ref} {...props} />;
 }
 
-const aboutScene: SceneSetup = ({ root, q }) => {
+const aboutScene: SceneSetup = ({ root, q, gsap }) => {
   gsap.from(q('word'), {
     opacity: 0.1,
     y: 30,

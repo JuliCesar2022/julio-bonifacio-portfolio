@@ -3,7 +3,6 @@
 import type { ComponentProps } from 'react';
 
 import { useScrollScene, type SceneSetup } from '@/components/motion/useScrollScene';
-import { gsap } from '@/lib/gsap';
 
 /** Letras gigantes que se deslizan de derecha a izquierda mientras pasan por la pantalla */
 export function MarqueeScene(props: ComponentProps<'section'>) {
@@ -11,7 +10,7 @@ export function MarqueeScene(props: ComponentProps<'section'>) {
   return <section ref={ref} {...props} />;
 }
 
-const marqueeScene: SceneSetup = ({ root, q }) => {
+const marqueeScene: SceneSetup = ({ root, q, gsap }) => {
   const [track] = q('track');
   gsap.to(track, {
     x: () => -(track.scrollWidth - root.clientWidth),
