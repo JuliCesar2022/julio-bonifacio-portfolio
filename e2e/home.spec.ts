@@ -63,7 +63,7 @@ test('las imágenes usan versiones de su tamaño', async ({ page }) => {
   await expect(page.locator('#inicio img').first()).toHaveAttribute('srcset', /\/_img\/[a-z-]+-\d+\.webp \d+w/);
 });
 
-for (const path of ['/', '/historia', '/proyectos']) {
+for (const path of ['/', '/historia', '/proyectos', '/proyectos/camila-ai']) {
   test(`sin errores en la consola: ${path}`, async ({ page }) => {
     const errors: string[] = [];
     page.on('console', (msg) => msg.type() === 'error' && errors.push(msg.text()));

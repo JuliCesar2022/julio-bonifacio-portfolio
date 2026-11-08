@@ -3,9 +3,11 @@ import type { Metadata } from 'next';
 import type { StaticImageData } from 'next/image';
 
 import defaultShareImage from '@/assets/og/portafolio.jpg';
+import { routes } from '@/config/routes';
 import { projects } from '@/content/projects';
 import { site } from '@/content/site';
 import { stack } from '@/content/stack';
+import type { Project } from '@/types/content';
 
 type ShareImage = { image: StaticImageData; alt: string };
 type PageSeo = { title?: string; description: string; path: string; share?: ShareImage };
@@ -86,25 +88,47 @@ export function profilePageJsonLd(path: string) {
   };
 }
 
-/** Página de proyectos: lista de los trabajos con su descripción */
-export function projectsJsonLd(path: string) {
+/** Un proyecto como obra creada por Julio */
+function creativeWork(project: Project) {
+  return {
+    '@type': 'CreativeWork',
+    name: project.name,
+    headline: project.tagline,
+    description: project.summary,
+    url: absolute(routes.project(project.slug)),
+    image: absolute(project.shot.src),
+    keywords: project.tags.join(', '),
+    inLanguage: 'es',
+    creator: { '@id': personId, '@type': 'Person', name: site.name },
+    ...(project.link ? { sameAs: project.link.href } : {}),
+  };
+}
+
+/** Página de proyectos: lista de los trabajos, cada uno con su página */
+export function projectsJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    url: absolute(path),
-    itemListElement: projects.map((project, i) => ({
+    url: absolute(routes.projects),
+    itemListElement: projects.map((project, i) => ({ '@type': 'ListItem', position: i + 1, item: creativeWork(project) })),
+  };
+}
+
+/** Página de un proyecto */
+export function projectJsonLd(project: Project) {
+  return { '@context': 'https://schema.org', ...creativeWork(project) };
+}
+
+/** Migas de pan para Google: Inicio › Proyectos › Camila AI */
+export function breadcrumbJsonLd(trail: { name: string; path: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map((step, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      item: {
-        '@type': 'CreativeWork',
-        name: project.name,
-        description: project.tagline,
-        url: absolute(`${path}#${project.slug}`),
-        image: absolute(project.shot.src),
-        keywords: project.tags.join(', '),
-        creator: { '@id': personId, '@type': 'Person', name: site.name },
-        ...(project.link ? { sameAs: project.link.href } : {}),
-      },
+      name: step.name,
+      item: absolute(step.path),
     })),
   };
 }

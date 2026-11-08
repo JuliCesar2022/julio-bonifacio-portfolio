@@ -1,8 +1,8 @@
-/* ---------- Letras gigantes ---------- */
+/* Letras gigantes que se deslizan con el scroll (MarqueeScene) */
 
 .marquee { overflow: hidden; padding: clamp(40px, 8vw, 96px) 0; }
 
-.marquee-track {
+.track {
   display: flex;
   align-items: center;
   gap: .25em;
@@ -16,9 +16,9 @@
   will-change: transform;
 }
 
-.marquee .star { font-size: .45em; }
+.marquee :global(.star) { font-size: .45em; }
 
-.marquee .grad {
+.gradient {
   background: var(--holo);
   -webkit-background-clip: text;
   background-clip: text;

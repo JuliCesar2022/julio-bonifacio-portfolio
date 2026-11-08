@@ -5,6 +5,8 @@ import { Logo } from '@/components/ui/Logo';
 import { homeSection, sections } from '@/config/routes';
 import { mailUrl, site, whatsappUrl } from '@/content/site';
 
+import styles from './Footer.module.css';
+
 type Social = { label: string; href: string; icon: ReactNode; external?: boolean };
 
 const socials: Social[] = [
@@ -17,13 +19,13 @@ const socials: Social[] = [
 
 export function Footer() {
   return (
-    <footer className="footer">
-      <div className="footer-top">
-        <div className="footer-brand">
-          <Logo href={homeSection(sections.top)} />
+    <footer className={styles.footer}>
+      <div className={styles.top}>
+        <div className={styles.brand}>
+          <Logo href={homeSection(sections.top)} className={styles.brandLogo} />
           <p>{site.tagline}</p>
         </div>
-        <ul className="footer-social" aria-label="Redes y contacto">
+        <ul className={styles.social} aria-label="Redes y contacto">
           {/* Una red sin enlace (ej. Instagram vacío en site.ts) no se muestra */}
           {socials
             .filter((social) => social.href)
@@ -40,7 +42,7 @@ export function Footer() {
             ))}
         </ul>
       </div>
-      <div className="footer-bottom">
+      <div className={styles.bottom}>
         <span>
           © {site.updated.slice(0, 4)} {site.name}
         </span>

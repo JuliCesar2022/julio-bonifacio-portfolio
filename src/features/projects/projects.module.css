@@ -1,0 +1,133 @@
+/* Proyectos: índice con miniaturas y caso de estudio de cada uno */
+
+.index {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: clamp(32px, 5vw, 56px);
+  padding: 0;
+  list-style: none;
+}
+
+.index a { display: block; color: var(--ink); text-decoration: none; }
+
+.index img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 14px;
+  box-shadow: 0 18px 36px -24px rgb(17 18 22 / .5);
+  transition: translate .3s var(--ease);
+}
+
+.index a:hover img { translate: 0 -4px; }
+.index span { display: block; margin-top: 10px; font-size: .9rem; font-weight: 700; }
+
+/* Un proyecto: encabezado, video y detalle */
+.case { padding: clamp(56px, 9vw, 110px) 0; border-top: 1px solid var(--line); scroll-margin-top: 70px; }
+.index + .case { margin-top: clamp(48px, 7vw, 88px); }
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px 40px;
+  margin-bottom: 28px;
+}
+
+.head :is(h1, h2) { margin-top: 8px; font-size: clamp(2rem, 4.4vw, 3.2rem); font-weight: 800; line-height: 1; letter-spacing: -.04em; }
+.tagline { max-width: 52ch; margin-top: 12px; color: var(--muted); font-size: clamp(1rem, 1.5vw, 1.15rem); }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; padding: 0; list-style: none; }
+
+.tags li {
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.links a { margin-top: 0; }
+
+/* Video con barra de navegador; sin video, la captura del proyecto */
+.video {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / .06);
+  border-radius: var(--radius);
+  background: #1b1c22;
+  box-shadow: 0 40px 70px -40px rgb(17 18 22 / .6);
+}
+
+.video video,
+.poster { display: block; width: 100%; height: auto; }
+
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 64px);
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+.text h3 { margin: 28px 0 10px; font-size: 1.15rem; font-weight: 800; letter-spacing: -.01em; }
+.text h3:first-child { margin-top: 0; }
+
+.list { display: grid; gap: 8px; padding: 0; list-style: none; }
+
+.list li { position: relative; padding-left: 24px; color: #3c4049; font-size: 1.02rem; line-height: 1.6; }
+
+.list li::before {
+  content: "✳";
+  position: absolute;
+  left: 0;
+  background: var(--holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Ficha lateral (Facts en versión compacta): se queda a la vista mientras se lee el proyecto */
+.aside { position: sticky; top: 96px; align-self: start; }
+
+/* Proyecto en la lista de /proyectos: solo su encabezado, con enlace a su página */
+.summary { padding: clamp(32px, 5vw, 56px) 0; }
+.summary .head { margin-bottom: 0; }
+.summary h2 a { text-decoration: none; }
+.summary h2 a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+
+/* Anterior / siguiente al final de la página de un proyecto */
+.pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: clamp(28px, 5vw, 48px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.pager a {
+  display: grid;
+  gap: 4px;
+  padding: 18px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  text-decoration: none;
+  transition: translate .3s var(--ease), border-color .3s;
+}
+
+.pager a:hover { translate: 0 -2px; border-color: var(--ink); }
+.pager span { color: var(--muted); font-size: .8rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.pager b { font-size: clamp(1.1rem, 2vw, 1.35rem); letter-spacing: -.02em; }
+.next { grid-column: 2; text-align: right; }
+
+@media (max-width: 820px) {
+  .index { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .body { grid-template-columns: 1fr; }
+  .aside { position: static; }
+}

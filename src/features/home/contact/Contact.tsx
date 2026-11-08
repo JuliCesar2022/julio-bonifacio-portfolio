@@ -4,6 +4,7 @@ import { sections } from '@/config/routes';
 import { contact } from '@/content/home';
 import { site, whatsappUrl } from '@/content/site';
 
+import styles from './contact.module.css';
 import { ContactScene } from './ContactScene';
 
 // Un enlace vacío (ej. el CV en site.ts) no se muestra
@@ -15,8 +16,8 @@ const links = [
 
 export function Contact() {
   return (
-    <ContactScene className="contact" id={sections.contact}>
-      <div className="contact-copy reveal">
+    <ContactScene className={styles.contact} id={sections.contact}>
+      <div className="reveal">
         <p className="eyebrow">{contact.eyebrow}</p>
         <h2 className="h2">
           <span className="light">{contact.title.light}</span>
@@ -25,12 +26,12 @@ export function Contact() {
         </h2>
         <div className="contact-actions">
           <MailButton />
-          <a className="wa-btn" href={whatsappUrl} target="_blank" rel="noopener">
+          <a className={styles.whatsapp} href={whatsappUrl} target="_blank" rel="noopener">
             <WhatsAppLogo />
             {contact.whatsapp}
           </a>
         </div>
-        <ul className="socials">
+        <ul className={styles.socials}>
           {links.map((link) => (
             <li key={link.label}>
               <a href={link.href} target="_blank" rel="noopener">
@@ -40,10 +41,10 @@ export function Contact() {
           ))}
         </ul>
       </div>
-      <div className="contact-art" aria-hidden="true">
-        <span className="pill p1" data-anim="pill-1" />
-        <span className="pill p2" data-anim="pill-2" />
-        <span className="ring" data-anim="ring" />
+      <div className={styles.art} aria-hidden="true">
+        <span className={`${styles.pill} ${styles.pill1}`} data-anim="pill-1" />
+        <span className={`${styles.pill} ${styles.pill2}`} data-anim="pill-2" />
+        <span className={styles.ring} data-anim="ring" />
       </div>
     </ContactScene>
   );

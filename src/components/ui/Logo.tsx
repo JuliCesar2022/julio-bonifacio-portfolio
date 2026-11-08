@@ -1,9 +1,11 @@
 import { site } from '@/content/site';
 
-export function Logo({ href }: { href: string }) {
+import styles from './Logo.module.css';
+
+export function Logo({ href, className }: { href: string; className?: string }) {
   return (
-    <a className="logo" href={href}>
-      <span className="logo-star" aria-hidden="true">
+    <a className={className ? `${styles.logo} ${className}` : styles.logo} href={href}>
+      <span className={styles.star} aria-hidden="true">
         ✳
       </span>{' '}
       {site.name}

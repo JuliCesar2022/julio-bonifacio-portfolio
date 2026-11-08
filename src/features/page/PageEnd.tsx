@@ -1,10 +1,13 @@
 import { MailButton } from '@/components/ui/MailButton';
+import { cx } from '@/lib/cx';
 import type { PageEndContent } from '@/types/content';
+
+import styles from './page.module.css';
 
 /** Cierre de las páginas internas: invitación a escribir */
 export function PageEnd({ end }: { end: PageEndContent }) {
   return (
-    <section className="story-end reveal">
+    <section className={cx(styles.end, 'reveal')}>
       <h2>
         <span className="light">{end.title.light}</span>
         <br />

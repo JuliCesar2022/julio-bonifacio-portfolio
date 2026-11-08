@@ -19,7 +19,7 @@ export default function HomePage() {
     <>
       <main>
         {/* La portada se queda fija y la vitrina oscura sube encima como un panel */}
-        <div className="intro">
+        <div>
           <Hero />
           <Showcase />
         </div>

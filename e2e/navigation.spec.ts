@@ -30,3 +30,32 @@ test('redes y contacto en el pie y el botón flotante', async ({ page }) => {
     /^https:\/\/wa\.me\/573026736193\?text=/,
   );
 });
+
+test('del índice de proyectos a uno y al siguiente', async ({ page }) => {
+  await page.goto('/proyectos');
+  await page.getByRole('heading', { level: 2, name: 'Camila AI' }).getByRole('link').click();
+  await expect(page).toHaveURL(/\/proyectos\/camila-ai$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Camila AI');
+  await expect(page.getByRole('navigation', { name: 'Principal' }).getByRole('link', { name: 'Proyectos' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+
+  await page.getByRole('navigation', { name: 'Más proyectos' }).getByRole('link', { name: /Siguiente/ }).click();
+  await expect(page).toHaveURL(/\/proyectos\/bloqui$/);
+  await page.getByRole('link', { name: /Todos los proyectos/ }).click();
+  await expect(page).toHaveURL(/\/proyectos$/);
+});
+
+test('los enlaces viejos con # llevan a la página del proyecto', async ({ page }) => {
+  await page.goto('/proyectos#camila');
+  await expect(page).toHaveURL(/\/proyectos\/camila-ai$/);
+  await page.goto('/proyectos#eduplay');
+  await expect(page).toHaveURL(/\/proyectos\/eduplay$/);
+});
+
+test('los proyectos relacionados se enlazan entre sí', async ({ page }) => {
+  await page.goto('/proyectos/cecar');
+  await page.getByRole('link', { name: 'CRM de Cecar' }).click();
+  await expect(page).toHaveURL(/\/proyectos\/crm-cecar$/);
+});

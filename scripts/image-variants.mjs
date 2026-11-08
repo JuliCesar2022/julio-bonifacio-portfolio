@@ -19,8 +19,10 @@ const QUALITY = 75;
 async function* walk(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) yield* walk(full);
-    else if (/\.(webp|png|jpe?g)$/i.test(entry.name)) yield full;
+    if (entry.isDirectory()) {
+      // og/: imagen para compartir en redes, se usa entera
+      if (entry.name !== 'og') yield* walk(full);
+    } else if (/\.(webp|png|jpe?g)$/i.test(entry.name)) yield full;
   }
 }
 

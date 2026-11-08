@@ -5,6 +5,17 @@ const pages = [
   { path: '/', title: /^Julio Bonifacio — Desarrollador full stack/, jsonLd: ['Person', 'WebSite'] },
   { path: '/historia', title: 'Mi historia — Julio Bonifacio', jsonLd: ['ProfilePage'] },
   { path: '/proyectos', title: 'Proyectos — Julio Bonifacio', jsonLd: ['ItemList'] },
+  ...[
+    ['camila-ai', 'Camila AI'],
+    ['bloqui', 'Bloqui'],
+    ['cecar', 'Cecar y Asociados'],
+    ['crm-cecar', 'CRM Cecar'],
+    ['eduplay', 'EduPlay'],
+  ].map(([slug, name]) => ({
+    path: `/proyectos/${slug}`,
+    title: `${name} — Julio Bonifacio`,
+    jsonLd: ['CreativeWork', 'BreadcrumbList'],
+  })),
 ];
 
 for (const { path, title, jsonLd } of pages) {

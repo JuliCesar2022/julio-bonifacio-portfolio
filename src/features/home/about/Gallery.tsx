@@ -3,7 +3,17 @@
 import Image from 'next/image';
 import { useRef, useState, type CSSProperties } from 'react';
 
+import { cx } from '@/lib/cx';
 import type { Photo } from '@/types/content';
+
+import styles from './about.module.css';
+
+const AREA_CLASS: Record<Photo['area'], string> = {
+  a: styles.photoA,
+  b: styles.photoB,
+  c: styles.photoC,
+  d: styles.photoD,
+};
 
 // Ancho que ocupa cada foto del mosaico. object-fit: cover recorta, así que las celdas altas
 // (a y c) necesitan una imagen más ancha que la celda
@@ -27,15 +37,15 @@ export function Gallery({ photos }: { photos: Photo[] }) {
 
   return (
     <>
-      <div className="gallery" data-anim="gallery">
+      <div className={styles.gallery} data-anim="gallery">
         {photos.map((photo) => (
           <figure
             key={photo.area}
-            className={`photo photo-${photo.area}`}
+            className={cx(styles.photo, AREA_CLASS[photo.area])}
             data-anim="photo"
             style={photo.focus ? ({ '--focus': photo.focus } as CSSProperties) : undefined}
           >
-            <button className="photo-open" type="button" aria-label={`Ampliar foto: ${photo.label}`} onClick={() => show(photo)}>
+            <button className={styles.photoOpen} type="button" aria-label={`Ampliar foto: ${photo.label}`} onClick={() => show(photo)}>
               <Image src={photo.image} alt={photo.alt} sizes={PHOTO_SIZES[photo.area]} />
             </button>
             <figcaption>{photo.caption}</figcaption>
@@ -44,15 +54,15 @@ export function Gallery({ photos }: { photos: Photo[] }) {
       </div>
 
       <dialog
-        className="lightbox"
+        className={styles.lightbox}
         aria-label="Foto ampliada"
         ref={dialogRef}
         onClick={(event) => event.target === event.currentTarget && close()}
         onClose={() => setOpen(null)}
       >
         {open && <Image src={open.image} alt={open.alt} style={{ width: 'auto', height: 'auto' }} />}
-        <p className="lightbox-caption">{open?.caption}</p>
-        <button className="lightbox-close" type="button" aria-label="Cerrar" onClick={close}>
+        <p className={styles.lightboxCaption}>{open?.caption}</p>
+        <button className={styles.lightboxClose} type="button" aria-label="Cerrar" onClick={close}>
           ×
         </button>
       </dialog>

@@ -1,0 +1,22 @@
+/* Ficha de datos (dt/dd) en tarjeta oscura */
+
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 0;
+  padding: 26px;
+  border-radius: var(--radius);
+  background: var(--dark);
+  color: #fff;
+}
+
+.facts dt { color: rgb(255 255 255 / .5); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+.facts dd { margin: 4px 0 0; font-size: 1.1rem; font-weight: 700; }
+
+/* Un dato largo (ej. el equipo) ocupa las dos columnas */
+.wide { grid-column: 1 / -1; }
+
+/* Versión compacta (al lado de un caso de estudio): textos más chicos y enlaces blancos */
+.facts.compact dd { font-size: 1rem; line-height: 1.4; }
+.compact a { color: #fff; text-underline-offset: 3px; }

@@ -7,21 +7,25 @@ import { projectsPage } from '@/content/pages';
 import { projects } from '@/content/projects';
 import { PageEnd } from '@/features/page/PageEnd';
 import { PageHero } from '@/features/page/PageHero';
-import { CaseStudy } from '@/features/projects/CaseStudy';
+import page from '@/features/page/page.module.css';
+import { LegacyHashRedirect } from '@/features/projects/LegacyHashRedirect';
+import { ProjectSummary } from '@/features/projects/ProjectSummary';
+import projectStyles from '@/features/projects/projects.module.css';
+import { cx } from '@/lib/cx';
 import { pageMetadata, projectsJsonLd } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({ ...projectsPage.seo, path: routes.projects });
 
-// Proyectos: el contenido está en src/content/projects.ts y src/content/pages.ts
+// Índice de proyectos: cada uno tiene su página en /proyectos/<slug> (src/app/proyectos/[slug])
 export default function ProyectosPage() {
   return (
-    <main className="story">
+    <main className={page.main}>
       <PageHero hero={projectsPage.hero} />
 
-      <ul className="proj-index reveal" aria-label={projectsPage.indexLabel}>
+      <ul className={cx(projectStyles.index, 'reveal')} aria-label={projectsPage.indexLabel}>
         {projects.map((project) => (
           <li key={project.slug}>
-            <a href={`#${project.slug}`}>
+            <a href={routes.project(project.slug)}>
               <Image src={project.shot} alt="" sizes="(max-width: 820px) 36vw, 260px" />
               <span>{project.name}</span>
             </a>
@@ -30,12 +34,13 @@ export default function ProyectosPage() {
       </ul>
 
       {projects.map((project, i) => (
-        <CaseStudy key={project.slug} project={project} index={i} />
+        <ProjectSummary key={project.slug} project={project} index={i} />
       ))}
 
       <PageEnd end={projectsPage.end} />
 
-      <JsonLd data={projectsJsonLd(routes.projects)} />
+      <JsonLd data={projectsJsonLd()} />
+      <LegacyHashRedirect slugs={projects.map((project) => project.slug)} />
     </main>
   );
 }

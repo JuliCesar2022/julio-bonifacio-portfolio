@@ -1,0 +1,45 @@
+/* Mi historia: foto de portada y capítulos (texto y fotos lado a lado) */
+
+.cover { margin: clamp(36px, 6vw, 64px) 0 0; }
+
+.cover img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: 0 30px 60px -30px rgb(17 18 22 / .45);
+}
+
+/* Capítulo: texto y fotos lado a lado; flip pone las fotos a la izquierda */
+.chapter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 64px);
+  padding: clamp(56px, 9vw, 110px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.cover + .chapter { margin-top: clamp(40px, 6vw, 72px); }
+.flip .media { order: -1; }
+/* Capítulo sin fotos: el texto usa todo el ancho, con un largo de línea cómodo */
+.chapter > :only-child { grid-column: 1 / -1; max-width: 720px; }
+
+.media { display: grid; gap: 18px; }
+.media.two { grid-template-columns: 1fr 1fr; }
+.media figure { margin: 0; }
+
+.media img {
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 24px 50px -28px rgb(17 18 22 / .45);
+}
+
+.media.two img { aspect-ratio: 3 / 4; object-fit: cover; }
+
+@media (max-width: 820px) {
+  .chapter { grid-template-columns: 1fr; }
+  .flip .media { order: 0; }
+}

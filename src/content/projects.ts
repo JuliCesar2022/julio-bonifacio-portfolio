@@ -5,6 +5,7 @@ import camilaShot from '@/assets/proyectos/camila-ai.webp';
 import cecarShot from '@/assets/proyectos/cecar.webp';
 import crmShot from '@/assets/proyectos/crm-cecar.webp';
 import eduplayShot from '@/assets/proyectos/eduplay.webp';
+import { routes } from '@/config/routes';
 import type { Project, Stat } from '@/types/content';
 
 /** Validación de Camila AI con 8 expertos en psicología (también aparece en Mi historia) */
@@ -22,6 +23,8 @@ export const projects: Project[] = [
     shot: camilaShot,
     shotAlt: 'Panel de Camila AI con chat, tiempo con Camila y recursos',
     tagline: 'Asistente virtual de bienestar emocional con inteligencia artificial generativa.',
+    summary:
+      'Camila AI es un asistente de bienestar emocional con IA generativa: conversa por chat y voz en tiempo real, usa RAG y la validaron 8 expertos en psicología.',
     tags: ['IA generativa', 'RAG', 'Voz en tiempo real', 'Investigación'],
     link: { label: 'Probar Camila AI', href: 'https://camilai.com' },
     // EDITA: cambia por un video más completo (ej. /videos/camila.mp4)
@@ -88,6 +91,8 @@ export const projects: Project[] = [
     shotAlt: 'Pantalla de Bloqui con la mascota naranja y las etapas del cultivo',
     tagline:
       'Lúdica interactiva para entender cómo blockchain aporta confianza a la calidad nutricional de los alimentos.',
+    summary:
+      'Bloqui es una lúdica interactiva, guiada por su mascota, que enseña cómo blockchain aporta confianza a la calidad nutricional de los alimentos en Cartagena.',
     tags: ['Blockchain', 'Lúdica interactiva', 'Investigación'],
     videoLabel: 'Demo de Bloqui',
     sections: [
@@ -142,6 +147,8 @@ export const projects: Project[] = [
     shot: cecarShot,
     shotAlt: 'Página de inicio de Cecar y Asociados: tours por el mar en Cartagena',
     tagline: 'Sitio web de una agencia de tours en Cartagena.',
+    summary:
+      'Sitio web de Cecar y Asociados, una agencia de tours en Cartagena: portada con tours destacados, catálogo con buscador, testimonios e inicio de sesión.',
     tags: ['Sitio web', 'Turismo', 'Empresa real'],
     link: { label: 'Ver demo', href: 'https://cecar.forif.co/' },
     // EDITA: enlace al código en GitHub (si es privado, déjalo vacío)
@@ -177,7 +184,7 @@ export const projects: Project[] = [
     facts: [
       { label: 'Tipo', value: 'Proyecto para empresa' },
       { label: 'Estado', value: 'Publicado' },
-      { label: 'Relacionado', value: '[CRM de Cecar](#crm-cecar)', wide: true },
+      { label: 'Relacionado', value: `[CRM de Cecar](${routes.project('crm-cecar')})`, wide: true },
     ],
   },
   {
@@ -187,6 +194,8 @@ export const projects: Project[] = [
     shot: crmShot,
     shotAlt: 'Panel del CRM de Cecar',
     tagline: 'Panel de gestión para el negocio de tours de Cecar y Asociados.',
+    summary:
+      'CRM de Cecar y Asociados: dashboard de ingresos frente a la meta, estado de las reservas, actividad reciente y módulos de reservas, experiencias y clientes.',
     tags: ['CRM', 'Dashboard', 'Empresa real'],
     videoLabel: 'Demo del CRM de Cecar',
     sections: [
@@ -219,7 +228,7 @@ export const projects: Project[] = [
     ],
     facts: [
       { label: 'Tipo', value: 'Proyecto para empresa' },
-      { label: 'Relacionado', value: '[Sitio de Cecar y Asociados](#cecar)', wide: true },
+      { label: 'Relacionado', value: `[Sitio de Cecar y Asociados](${routes.project('cecar')})`, wide: true },
     ],
   },
   {
@@ -229,6 +238,8 @@ export const projects: Project[] = [
     shot: eduplayShot,
     shotAlt: 'Dashboard de un curso en EduPlay con gráficas de rendimiento',
     tagline: 'Plataforma para gestionar cursos: actividades, estudiantes, asistencia y calificaciones.',
+    summary:
+      'EduPlay es una plataforma para gestionar cursos: dashboard por curso, gráficas de rendimiento, actividades, estudiantes, asistencia y calificaciones.',
     tags: ['Educación', 'Dashboard', 'Analítica'],
     videoLabel: 'Demo de EduPlay',
     sections: [

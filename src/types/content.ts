@@ -36,6 +36,8 @@ export type Project = {
   shot: StaticImageData;
   shotAlt: string;
   tagline: string;
+  /** Resumen de 1–2 frases (120–160 caracteres): descripción para Google y tarjeta en /proyectos */
+  summary: string;
   tags: string[];
   link?: Link;
   /** Repositorio público. Vacío = no se muestra el botón "Código" (ej. código privado) */

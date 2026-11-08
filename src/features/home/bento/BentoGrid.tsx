@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, type ReactNode } from 'react';
 
+import styles from './bento.module.css';
+
 /**
  * Cuadrícula del bento con brillo que sigue al mouse (solo con mouse y sin "reducir movimiento").
  * Cada tarjeta recibe la posición del cursor relativa a ella (--mx/--my), así el borde de las
@@ -16,7 +18,7 @@ export function BentoGrid({ children }: { children: ReactNode }) {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-    const tiles = [...grid.querySelectorAll<HTMLElement>('.tile')];
+    const tiles = [...grid.children] as HTMLElement[];
     let pending: PointerEvent | null = null;
     let frame = 0;
 
@@ -35,8 +37,8 @@ export function BentoGrid({ children }: { children: ReactNode }) {
         pending = null;
       });
     };
-    const onEnter = () => grid.classList.add('glow');
-    const onLeave = () => grid.classList.remove('glow');
+    const onEnter = () => grid.classList.add(styles.glow);
+    const onLeave = () => grid.classList.remove(styles.glow);
 
     grid.addEventListener('pointermove', onMove);
     grid.addEventListener('pointerenter', onEnter);
@@ -50,7 +52,7 @@ export function BentoGrid({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div className="bento" ref={gridRef} data-anim="grid">
+    <div className={styles.grid} ref={gridRef} data-anim="grid">
       {children}
     </div>
   );

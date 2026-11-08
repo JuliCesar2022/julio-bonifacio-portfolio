@@ -3,7 +3,10 @@ import type { CSSProperties } from 'react';
 
 import { hero } from '@/content/home';
 import { getProject } from '@/content/projects';
+import { cx } from '@/lib/cx';
 import type { Project } from '@/types/content';
+
+import styles from './hero.module.css';
 
 const heroProjects = hero.cards.map(getProject);
 const foregroundProject = getProject(hero.foregroundCard);
@@ -17,16 +20,16 @@ const cardStyle = (project: Project, i: number) =>
 export function HeroCards() {
   return (
     <>
-      <div className="stack" aria-hidden="true" data-anim="stack">
-        <div className="stack-float">
-          <div className="stack-inner" data-anim="stack-inner">
+      <div className={styles.stack} aria-hidden="true" data-anim="stack">
+        <div className={styles.float}>
+          <div className={styles.inner} data-anim="stack-inner">
             {heroProjects.map((project, i) => (
-              <div key={project.slug} className={`card3d c${i + 1} has-shot`}
+              <div key={project.slug} className={cx(styles.card, styles[`c${i + 1}`])}
                 style={cardStyle(project, i)}
                 data-anim="card"
               >
                 <Image
-                  className="card-shot"
+                  className={styles.shot}
                   src={project.shot}
                   alt=""
                   draggable={false}
@@ -34,7 +37,7 @@ export function HeroCards() {
                   preload={i === 0}
                   loading={i === 0 ? undefined : 'eager'}
                 />
-                <span className="card-name">{project.cardName}</span>
+                <span className={styles.name}>{project.cardName}</span>
               </div>
             ))}
           </div>
@@ -42,10 +45,10 @@ export function HeroCards() {
       </div>
 
       {/* Tarjeta grande y borrosa en primer plano, para dar profundidad */}
-      <div className="fg-wrap" aria-hidden="true" data-anim="foreground">
-        <div className="card3d card-fg c3 has-shot" style={cardStyle(foregroundProject, 3)}>
+      <div className={styles.foreground} aria-hidden="true" data-anim="foreground">
+        <div className={cx(styles.card, styles.foregroundCard, styles.c3)} style={cardStyle(foregroundProject, 3)}>
           <Image
-            className="card-shot"
+            className={styles.shot}
             src={foregroundProject.shot}
             alt=""
             draggable={false}

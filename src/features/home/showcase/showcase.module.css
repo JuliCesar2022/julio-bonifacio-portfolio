@@ -1,4 +1,4 @@
-/* ---------- Vitrina: PC + celular sobre pared de bloques ---------- */
+/* Vitrina: PC + celular con los videos de Camila AI, sobre una pared de bloques */
 
 .showcase {
   position: relative;
@@ -37,7 +37,7 @@
   mask-image: linear-gradient(to top, #000 35%, transparent);
 }
 
-.showcase-inner {
+.inner {
   position: relative;
   z-index: 1;
   /* Más ancha que el resto de la página: el PC tiene que verse grande para que se lea el proyecto */
@@ -50,15 +50,15 @@
   gap: clamp(16px, 3vw, 40px);
 }
 
-.showcase-text {
+.text {
   font-size: clamp(1.8rem, 3vw, 3rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -.04em;
 }
 
-.showcase-text .light { color: rgb(255 255 255 / .7); }
-.showcase-right { justify-self: end; text-align: right; }
+.text :global(.light) { color: rgb(255 255 255 / .7); }
+.right { justify-self: end; text-align: right; }
 
 .arrow {
   width: clamp(90px, 10vw, 140px);
@@ -70,14 +70,14 @@
   stroke-linejoin: round;
 }
 
-.showcase-right .arrow { transform: scaleX(-1); }
+.right .arrow { transform: scaleX(-1); }
 
 .devices { position: relative; padding-bottom: 4%; }
 
 .laptop { width: 86%; }
 
 /* content-box: el 16:10 es de la pantalla sin el borde, igual que el video (1440x900), así no se recorta */
-.laptop-screen {
+.laptopScreen {
   position: relative;
   box-sizing: content-box;
   aspect-ratio: 16 / 10;
@@ -89,7 +89,7 @@
   box-shadow: 0 0 0 1px rgb(255 255 255 / .08), 0 50px 80px -30px rgb(0 0 0 / .8);
 }
 
-.laptop-base {
+.laptopBase {
   position: relative;
   width: 112%;
   height: clamp(10px, 1.4vw, 18px);
@@ -98,7 +98,7 @@
   background: linear-gradient(#dfe2e9, #8b8f9a);
 }
 
-.laptop-base::before {
+.laptopBase::before {
   content: "";
   position: absolute;
   top: 0;
@@ -138,7 +138,7 @@
 }
 
 /* Video de un proyecto dentro de una pantalla (mismo formato que la pantalla, 16:10) */
-.screen-video {
+.screenVideo {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -147,9 +147,16 @@
 }
 
 /* Enlace invisible encima de cada pantalla: clic en el video abre el proyecto */
-.screen-link { position: absolute; inset: 0; z-index: 1; cursor: pointer; }
+.screenLink { position: absolute; inset: 0; z-index: 1; cursor: pointer; }
 
 /* Botón debajo del PC y el celular (fila nueva de la columna central) */
-.showcase-cta { grid-column: 2; display: grid; justify-items: center; gap: 10px; margin-top: 8px; }
-.showcase-cta .btn { gap: 8px; }
-.showcase-cta p { color: rgb(255 255 255 / .6); font-size: .9rem; }
+.cta { grid-column: 2; display: grid; justify-items: center; gap: 10px; margin-top: 8px; }
+.cta :global(.btn) { gap: 8px; }
+.cta p { color: rgb(255 255 255 / .6); font-size: .9rem; }
+
+@media (max-width: 820px) {
+  .inner { grid-template-columns: 1fr; }
+  .right { justify-self: start; text-align: left; }
+  .cta { grid-column: auto; justify-items: start; }
+  .arrow { display: none; }
+}

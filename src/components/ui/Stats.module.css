@@ -1,0 +1,17 @@
+/* Cifras destacadas en tarjetas oscuras */
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+.stats + p { margin-top: 14px; }
+
+.stat { padding: 16px; border-radius: 16px; background: var(--dark); color: rgb(255 255 255 / .7); font-size: .85rem; }
+
+.stat b {
+  display: block;
+  background: var(--holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+}

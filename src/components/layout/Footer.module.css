@@ -1,0 +1,60 @@
+.footer {
+  max-width: var(--max);
+  margin: 0 auto;
+  /* Abajo deja lugar para el botón flotante de WhatsApp */
+  padding: 40px var(--pad-x) 96px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.footer a { text-decoration: none; }
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.brandLogo { color: var(--ink); }
+.brand p { margin-top: 6px; }
+
+.social { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+
+.social a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  transition: background-color .3s, color .3s, border-color .3s, translate .3s var(--ease);
+}
+
+.social a:hover { translate: 0 -2px; border-color: var(--ink); background: var(--ink); color: #fff; }
+
+.social svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.bottom a:hover { color: var(--ink); }

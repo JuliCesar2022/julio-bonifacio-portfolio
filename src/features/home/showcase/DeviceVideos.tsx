@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 
+import styles from './showcase.module.css';
+
 type Video = { src: string; poster: string; label: string };
 type Props = { videos: { desktop: Video; phone: Video }; href: string };
 
@@ -50,12 +52,12 @@ export function DeviceVideos({ videos: { desktop, phone }, href }: Props) {
   }, []);
 
   return (
-    <div className="devices" ref={groupRef} data-anim="devices">
-      <div className="laptop">
-        <div className="laptop-screen">
+    <div className={styles.devices} ref={groupRef} data-anim="devices">
+      <div className={styles.laptop}>
+        <div className={styles.laptopScreen}>
           <video
             ref={pcRef}
-            className="screen-video"
+            className={styles.screenVideo}
             data-src={desktop.src}
             poster={desktop.poster}
             muted
@@ -66,7 +68,7 @@ export function DeviceVideos({ videos: { desktop, phone }, href }: Props) {
           />
           {/* Clic en la pantalla abre Camila AI (el botón de abajo es el enlace accesible) */}
           <a
-            className="screen-link"
+            className={styles.screenLink}
             href={href}
             target="_blank"
             rel="noopener"
@@ -75,14 +77,14 @@ export function DeviceVideos({ videos: { desktop, phone }, href }: Props) {
             title="Abrir Camila AI"
           />
         </div>
-        <div className="laptop-base" />
+        <div className={styles.laptopBase} />
       </div>
 
-      <div className="phone" data-anim="phone">
-        <span className="island" />
+      <div className={styles.phone} data-anim="phone">
+        <span className={styles.island} />
         <video
           ref={phoneRef}
-          className="screen-video"
+          className={styles.screenVideo}
           data-src={phone.src}
           poster={phone.poster}
           muted
@@ -92,7 +94,7 @@ export function DeviceVideos({ videos: { desktop, phone }, href }: Props) {
           aria-label={phone.label}
         />
         <a
-          className="screen-link"
+          className={styles.screenLink}
           href={href}
           target="_blank"
           rel="noopener"

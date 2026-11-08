@@ -1,6 +1,6 @@
-/* ---------- Proyectos (bento grid) ---------- */
+/* Proyectos y habilidades: cuadrícula de tarjetas .grid grid) */
 
-.bento {
+.grid {
   position: relative;
   display: grid;
   gap: 14px;
@@ -17,7 +17,7 @@
    --rb, --rc y --rd). Siempre suman lo mismo en el centro (b + c + d), así el proyecto destacado,
    el título y el estado no cambian; a la izquierda crece "5 proyectos" y a la derecha crece "Stack" */
 @media (min-width: 901px) {
-  .bento {
+  .grid {
     --rb: 250px;
     --rc: 20px;
     --rd: 230px;
@@ -47,7 +47,7 @@
 /* translate (no transform) para no chocar con las animaciones de GSAP (BentoScene) */
 .tile:hover { translate: 0 -4px; box-shadow: 0 26px 40px -26px rgb(17 18 22 / .4); }
 
-/* Brillo que sigue al mouse (BentoGrid pone --mx/--my en cada tarjeta y .glow en la cuadrícula).
+/* Brillo que sigue al mouse (BentoGrid pone --mx/--my en cada tarjeta y la clase glow en la cuadrícula).
    ::before = luz suave en la tarjeta; ::after = el borde se ilumina cerca del cursor,
    también en las tarjetas vecinas */
 .tile {
@@ -55,8 +55,8 @@
   --glow-borde: rgb(255 255 255 / .7);
 }
 
-.tile-stack,
-.tile-status {
+.stack,
+.status {
   --glow: rgb(61 90 254 / .1);
   --glow-borde: rgb(61 90 254 / .4);
 }
@@ -85,22 +85,22 @@
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
 }
 
-.bento.glow .tile::after { opacity: 1; }
-.bento.glow .tile:hover::before { opacity: 1; }
+.grid.glow .tile::after { opacity: 1; }
+.grid.glow .tile:hover::before { opacity: 1; }
 
 .big { font-size: clamp(2.8rem, 5vw, 4rem); font-weight: 800; line-height: 1; letter-spacing: -.045em; }
-.tile-text { font-size: .95rem; opacity: .78; }
-.tile-h { font-size: 1.35rem; font-weight: 700; letter-spacing: -.02em; }
-.tile-kicker { font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .6; }
+.text { font-size: .95rem; opacity: .78; }
+.heading { font-size: 1.35rem; font-weight: 700; letter-spacing: -.02em; }
+.kicker { font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .6; }
 
-.tile-num {
+.num {
   grid-area: num;
   color: #fff;
   background: linear-gradient(160deg, #4f6bff, #1c35d9 60%, #0e1f9e);
 }
 
 .glass { position: absolute; top: -8%; right: -14%; width: min(78%, 240px); aspect-ratio: 1; }
-.tile-num .big, .tile-num .tile-text { position: relative; }
+.num .big, .num .text { position: relative; }
 
 .glass span {
   position: absolute;
@@ -116,7 +116,7 @@
 .glass span:nth-child(2) { --k: 1; }
 .glass span:nth-child(3) { --k: 2; }
 
-.tile-pill {
+.pill {
   grid-area: pill;
   justify-content: center;
   align-items: center;
@@ -126,9 +126,9 @@
   animation: holo-shift 10s ease-in-out infinite alternate;
 }
 
-.tile-title { font-size: 1.2rem; font-weight: 700; letter-spacing: -.01em; }
+.title { font-size: 1.2rem; font-weight: 700; letter-spacing: -.01em; }
 
-.tile-years { grid-area: years; color: #fff; background: var(--dark-2); }
+.years { grid-area: years; color: #fff; background: var(--dark-2); }
 
 .code {
   margin-bottom: auto;
@@ -141,7 +141,7 @@
   overflow: hidden;
 }
 
-.tile-feat { grid-area: feat; justify-content: flex-start; color: #fff; background: var(--dark); }
+.feat { grid-area: feat; justify-content: flex-start; color: #fff; background: var(--dark); }
 
 .mock {
   margin: 14px 0 18px;
@@ -154,11 +154,11 @@
 }
 
 /* Captura completa del proyecto, sin recortes (misma proporción que la imagen) */
-.mock-shot { display: block; width: 100%; aspect-ratio: 1400 / 673; object-fit: cover; object-position: top; }
+.shot { display: block; width: 100%; aspect-ratio: 1400 / 673; object-fit: cover; object-position: top; }
 
-.tile-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 
-.tile-back { grid-area: back; color: #fff; background: #050506; }
+.back { grid-area: back; color: #fff; background: #050506; }
 
 .bars { display: flex; align-items: flex-end; gap: 8px; height: 110px; margin-bottom: auto; }
 
@@ -170,7 +170,7 @@
   transform-origin: bottom;
 }
 
-.tile-stack { grid-area: stack; background: linear-gradient(160deg, #f7f8fa, #dde1e9); }
+.stack { grid-area: stack; background: linear-gradient(160deg, #f7f8fa, #dde1e9); }
 
 .orb {
   position: absolute;
@@ -201,7 +201,7 @@
 
 .chips img { width: 18px; height: 18px; flex: none; }
 
-.tile-status {
+.status {
   grid-area: status;
   flex-direction: row;
   flex-wrap: wrap;
@@ -212,7 +212,7 @@
   font-weight: 600;
 }
 
-.tile-status .btn { position: relative; z-index: 3; padding: 10px 16px; font-size: .88rem; }
+.status :global(.btn) { position: relative; z-index: 3; padding: 10px 16px; font-size: .88rem; }
 
 .dot {
   display: inline-block;
@@ -223,4 +223,38 @@
   background: #22c55e;
   box-shadow: 0 0 0 0 rgb(34 197 94 / .6);
   animation: pulse 2s infinite;
+}
+
+/* ---------- Pantallas ---------- */
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "pill pill"
+      "feat feat"
+      "num  years"
+      "back stack"
+      "status status";
+  }
+
+  .feat { min-height: 440px; }
+  .num, .years, .back, .stack { min-height: 240px; }
+}
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; grid-template-areas: "pill" "feat" "num" "years" "back" "stack" "status"; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile:hover { translate: none; }
+}
+
+/* ---------- Animaciones ---------- */
+
+@keyframes holo-shift { to { background-position: 100% 0; } }
+
+@keyframes pulse {
+  70% { box-shadow: 0 0 0 10px rgb(34 197 94 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(34 197 94 / 0); }
 }

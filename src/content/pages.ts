@@ -15,6 +15,13 @@ export const projectsPage = {
     back: { label: 'Volver al portafolio', href: homeSection(sections.projects) },
   } satisfies PageHeroContent,
   indexLabel: 'Ir a un proyecto',
+  /** Enlace de cada proyecto en la lista */
+  open: 'Ver proyecto',
+  /** En la página de un proyecto */
+  backToIndex: 'Todos los proyectos',
+  previous: 'Anterior',
+  next: 'Siguiente',
+  navLabel: 'Más proyectos',
   end: {
     title: { light: '¿Tienes un proyecto', bold: 'en mente?' },
     link: { label: 'Conoce mi historia', href: routes.story },

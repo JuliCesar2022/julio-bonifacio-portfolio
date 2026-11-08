@@ -4,14 +4,17 @@ import { Fragment, useEffect, useState } from 'react';
 
 import { StarText } from '@/components/ui/StarText';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { cx } from '@/lib/cx';
 
-type Line = { text: string; className: string };
+import styles from './hero.module.css';
+
+type Line = { text: string; weight: 'light' | 'bold' };
 
 const STEP_MS = 220;
 
 /**
  * Título que aparece palabra por palabra, con ✳ en el lugar de la palabra que viene.
- * El texto completo invisible (.ghost) reserva el espacio para que nada salte, y el aria-label
+ * El texto completo invisible (ghost) reserva el espacio para que nada salte, y el aria-label
  * da la frase completa a lectores de pantalla y buscadores.
  */
 export function TypedTitle({ label, lines }: { label: string; lines: Line[] }) {
@@ -28,24 +31,28 @@ export function TypedTitle({ label, lines }: { label: string; lines: Line[] }) {
   }, [reduceMotion, step, words.length]);
 
   return (
-    <h1 className="hero-title" aria-label={label}>
+    <h1 className={styles.title} aria-label={label}>
       {lines.map((line, li) => {
         const typed = words
           .map((word, i) => ({ ...word, i }))
           .filter((word) => word.li === li && word.i <= shown);
         return (
-          <span key={li} className={`line ${line.className}`} aria-hidden="true">
-            <span className="ghost">
+          <span
+            key={li}
+            className={cx(styles.line, line.weight === 'light' ? styles.lineLight : styles.lineBold)}
+            aria-hidden="true"
+          >
+            <span className={styles.ghost}>
               <StarText text={line.text} />
             </span>
-            <span className="typed">
+            <span className={styles.typed}>
               {typed.map((word, k) => (
                 <Fragment key={word.i}>
                   {k > 0 && ' '}
                   {word.i < shown ? (
                     <StarText text={word.text} />
                   ) : (
-                    <span className="ph">{'✳'.repeat(Math.min(3, word.text.length))}</span>
+                    <span className={styles.placeholder}>{'✳'.repeat(Math.min(3, word.text.length))}</span>
                   )}
                 </Fragment>
               ))}

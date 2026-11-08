@@ -1,17 +1,5 @@
-/* Estilos globales, en el mismo orden de la cascada original.
-   Cada archivo es una sección de la página; responsive.css y el bloque de "reducir movimiento"
-   van al final porque ajustan reglas de todas las secciones. */
+/* Estilos globales: solo la base del diseño (colores, medidas, reset, tipografía) y las piezas
+   que se repiten en varias páginas (botones, títulos de sección, aparición al hacer scroll).
+   Cada sección y componente trae su propio .module.css a su lado. */
 @import "../styles/base.css";
 @import "../styles/ui.css";
-@import "../styles/nav.css";
-@import "../styles/hero.css";
-@import "../styles/showcase.css";
-@import "../styles/bento.css";
-@import "../styles/about.css";
-@import "../styles/gallery.css";
-@import "../styles/story.css";
-@import "../styles/projects-page.css";
-@import "../styles/marquee.css";
-@import "../styles/contact-footer.css";
-@import "../styles/motion.css";
-@import "../styles/responsive.css";

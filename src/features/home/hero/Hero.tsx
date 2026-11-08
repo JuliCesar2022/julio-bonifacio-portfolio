@@ -2,7 +2,9 @@ import { CodeIcon, DatabaseIcon, PenIcon } from '@/components/ui/icons';
 import { RichText } from '@/components/ui/RichText';
 import { sections } from '@/config/routes';
 import { hero } from '@/content/home';
+import { cx } from '@/lib/cx';
 
+import styles from './hero.module.css';
 import { HeroCards } from './HeroCards';
 import { HeroScene } from './HeroScene';
 import { TypedTitle } from './TypedTitle';
@@ -11,22 +13,22 @@ const TAG_ICONS = { code: CodeIcon, database: DatabaseIcon, pen: PenIcon };
 
 export function Hero() {
   return (
-    <HeroScene className="hero" id={sections.top}>
+    <HeroScene className={styles.hero} id={sections.top}>
       <HeroCards />
 
-      <div className="hero-copy" data-anim="copy">
+      <div className={styles.copy} data-anim="copy">
         <p className="eyebrow">{hero.eyebrow}</p>
         <TypedTitle
           label={hero.title.label}
           lines={[
-            { text: hero.title.light, className: 'line-light' },
-            { text: hero.title.bold, className: 'line-bold' },
+            { text: hero.title.light, weight: 'light' },
+            { text: hero.title.bold, weight: 'bold' },
           ]}
         />
-        <p className="hero-sub hero-fade">
+        <p className={cx(styles.sub, styles.fade)}>
           <RichText text={hero.intro} />
         </p>
-        <ul className="hero-tags hero-fade">
+        <ul className={cx(styles.tags, styles.fade)}>
           {hero.tags.map(({ label, icon }) => {
             const Icon = TAG_ICONS[icon];
             return (
