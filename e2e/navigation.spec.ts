@@ -15,7 +15,7 @@ test('del inicio a Mi historia y de vuelta a Proyectos', async ({ page }) => {
 
 test('volver al portafolio desde Proyectos', async ({ page }) => {
   await page.goto('/proyectos');
-  await page.getByRole('link', { name: /Volver al portafolio/ }).click();
+  await page.getByRole('link', { name: /Volver al portafolio/ }).press('Enter');
   await expect(page).toHaveURL(/\/#proyectos$/);
 });
 
@@ -41,7 +41,8 @@ test('del índice de proyectos a uno y al siguiente', async ({ page }) => {
     'page',
   );
 
-  await page.getByRole('navigation', { name: 'Más proyectos' }).getByRole('link', { name: /Siguiente/ }).click();
+  // Con teclado: al bajar hasta el final, el botón flotante de WhatsApp puede quedar encima del enlace
+  await page.getByRole('navigation', { name: 'Más proyectos' }).getByRole('link', { name: /Siguiente/ }).press('Enter');
   await expect(page).toHaveURL(/\/proyectos\/bloqui$/);
   await page.getByRole('link', { name: /Todos los proyectos/ }).click();
   await expect(page).toHaveURL(/\/proyectos$/);

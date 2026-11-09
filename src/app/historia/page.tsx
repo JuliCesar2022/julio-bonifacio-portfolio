@@ -25,8 +25,13 @@ export default function HistoriaPage() {
         <figcaption>{storyCover.caption}</figcaption>
       </figure>
 
-      {storyChapters.map((chapter) => (
-        <StoryChapter key={chapter.step} chapter={chapter} />
+      {storyChapters.map((chapter, i) => (
+        <StoryChapter
+          key={chapter.title}
+          chapter={chapter}
+          step={String(i + 1).padStart(2, '0')}
+          flip={i % 2 === 1}
+        />
       ))}
 
       <PageEnd end={storyEnd} />

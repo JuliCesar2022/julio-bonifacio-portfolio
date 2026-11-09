@@ -9,6 +9,8 @@ const channel = CI ? undefined : 'msedge';
 export default defineConfig({
   testDir: 'e2e',
   fullyParallel: true,
+  // La portada anima mucho y tiene videos: con demasiados navegadores a la vez la PC se queda sin memoria
+  workers: CI ? 1 : 2,
   forbidOnly: CI,
   retries: CI ? 1 : 0,
   reporter: CI ? [['github'], ['html', { open: 'never' }]] : [['list']],

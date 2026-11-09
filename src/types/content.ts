@@ -25,7 +25,11 @@ export type Section = { title: string; blocks: Block[] };
 
 export type Picture = { image: StaticImageData; alt: string };
 
-export type CaptionedPicture = Picture & { caption: string };
+export type CaptionedPicture = Picture & {
+  caption: string;
+  /** Encuadre (X% Y%) cuando la foto se recorta, para no cortar lo importante */
+  focus?: string;
+};
 
 export type Project = {
   /** Su dirección: /proyectos/<slug> */
@@ -65,18 +69,40 @@ export type Tech = { name: string; logo: StaticImageData };
 /** Título de dos líneas: la primera delgada, la segunda gruesa */
 export type TwoLineTitle = { light: string; bold: string };
 
+/** Lugar reservado para una foto que aún no está: se ve un recuadro con la descripción de la foto */
+export type PhotoSlot = { pending: string; caption: string };
+
+/** Video en un capítulo (archivo en /public/videos). Se descarga solo cuando le dan play */
+export type StoryVideo = {
+  video: { src: string; poster: string; width: number; height: number };
+  /** Nombre para lectores de pantalla */
+  label: string;
+  caption: string;
+};
+
+/**
+ * Capítulo de "Mi historia". Su número (01, 02…) sale de su posición en la lista, y las fotos
+ * van a la derecha en los impares y a la izquierda en los pares
+ */
 export type StoryChapter = {
-  step: string;
+  /** Cuándo pasó (año, edad o etapa); va junto al número */
+  when?: string;
   title: string;
   blocks: Block[];
-  /** Fotos al lado del texto */
-  photos?: CaptionedPicture[];
+  /** Fotos (o videos) al lado del texto, o recuadros para las que faltan */
+  photos?: (CaptionedPicture | PhotoSlot | StoryVideo)[];
   /** Fotos en dos columnas (si no, una debajo de otra) */
   sideBySide?: boolean;
+  /**
+   * Varias fotos en mosaico:
+   * - 'tall': tres, la primera grande a un lado y las otras dos apiladas (para una foto vertical)
+   * - 'wide': la primera grande arriba y las demás debajo, de a dos (para fotos horizontales)
+   * - 'grid': cuatro, en cuadrícula de 2 × 2
+   * - 'pair': dos lado a lado, la primera vertical y más angosta (ej. un video de celular)
+   */
+  mosaic?: 'tall' | 'wide' | 'grid' | 'pair';
   /** Ficha de datos al lado del texto */
   facts?: Fact[];
-  /** Fotos a la izquierda */
-  flip?: boolean;
 };
 
 /** Encabezado de las páginas internas: su último carácter se cambia por el ✳ animado */

@@ -10,6 +10,7 @@ export const routes = {
 /** Secciones de la portada (id del elemento) */
 export const sections = {
   top: 'inicio',
+  reel: 'mis-proyectos',
   projects: 'proyectos',
   about: 'sobre-mi',
   contact: 'contacto',

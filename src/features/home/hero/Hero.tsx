@@ -1,6 +1,5 @@
 import { CodeIcon, DatabaseIcon, PenIcon } from '@/components/ui/icons';
 import { RichText } from '@/components/ui/RichText';
-import { sections } from '@/config/routes';
 import { hero } from '@/content/home';
 import { cx } from '@/lib/cx';
 
@@ -13,7 +12,7 @@ const TAG_ICONS = { code: CodeIcon, database: DatabaseIcon, pen: PenIcon };
 
 export function Hero() {
   return (
-    <HeroScene className={styles.hero} id={sections.top}>
+    <HeroScene className={styles.hero}>
       <HeroCards />
 
       <div className={styles.copy} data-anim="copy">

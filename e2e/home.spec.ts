@@ -75,3 +75,51 @@ for (const path of ['/', '/historia', '/proyectos', '/proyectos/camila-ai']) {
     expect(errors).toEqual([]);
   });
 }
+
+test('los proyectos pasan de lado al hacer scroll (escritorio) o se deslizan (celular)', async ({ page }, testInfo) => {
+  await page.goto('/');
+  const reel = page.locator('#mis-proyectos');
+  const track = reel.locator('[data-anim="track"]');
+  await expect(track.getByRole('link', { name: /Ver proyecto: Camila AI/ })).toHaveAttribute('href', '/proyectos/camila-ai');
+
+  if (testInfo.project.name === 'escritorio') {
+    // La sección es alta: el scroll vertical por ella mueve la fila en horizontal
+    const box = (await reel.boundingBox())!;
+    const translateX = () => track.evaluate((el) => new DOMMatrix(getComputedStyle(el).transform).m41);
+    await page.evaluate((y) => window.scrollTo(0, y), box.y + 1200);
+    await expect.poll(translateX, { timeout: 8000 }).toBeLessThan(-600);
+    await expect(reel.locator('[data-anim="counter"]')).not.toHaveText('01');
+  } else {
+    // En celular es un carrusel: se desliza con el dedo
+    const viewport = reel.locator('[data-anim="viewport"]');
+    await viewport.scrollIntoViewIfNeeded();
+    expect(await viewport.evaluate((el) => el.scrollWidth > el.clientWidth * 3)).toBe(true);
+    await viewport.evaluate((el) => el.scrollBy({ left: 400 }));
+    await expect.poll(() => viewport.evaluate((el) => el.scrollLeft)).toBeGreaterThan(200);
+  }
+});
+
+test('el menú salta el paso lateral de los proyectos en vez de recorrerlo', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'escritorio', 'En celular los proyectos no ocupan alto extra');
+  await page.goto('/');
+  const reel = page.locator('#mis-proyectos');
+  // La animación de los proyectos ya está lista cuando su fila tiene transformación
+  await expect
+    .poll(() => reel.locator('[data-anim="viewport"]').evaluate((el) => getComputedStyle(el).transform))
+    .not.toBe('none');
+  const box = await reel.evaluate((el) => ({ top: el.getBoundingClientRect().top + scrollY, height: el.getBoundingClientRect().height }));
+
+  // Anota cada posición del scroll desde el clic hasta llegar
+  await page.evaluate(() => {
+    const w = window as unknown as { positions: number[] };
+    w.positions = [];
+    addEventListener('scroll', () => w.positions.push(scrollY), { passive: true });
+  });
+  await page.getByRole('navigation', { name: 'Principal' }).getByRole('link', { name: 'Sobre mí' }).click();
+  await expect(page.locator('#sobre-mi')).toBeInViewport();
+
+  const positions = await page.evaluate(() => (window as unknown as { positions: number[] }).positions);
+  const screen = page.viewportSize()!.height;
+  const throughTheMiddle = positions.filter((y) => y > box.top + screen && y < box.top + box.height - 2 * screen);
+  expect(throughTheMiddle).toEqual([]);
+});

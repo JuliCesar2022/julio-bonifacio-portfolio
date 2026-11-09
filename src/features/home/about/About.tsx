@@ -33,7 +33,7 @@ const facts = [
 /** Sobre mí (sección oscura) con la galería de fotos */
 export function About() {
   return (
-    <AboutScene className={styles.about} id={sections.about}>
+    <AboutScene className={styles.about} id={sections.about} data-nav-theme="dark">
       <div className={styles.inner}>
         <h2 className={styles.title}>
           <span className="light">

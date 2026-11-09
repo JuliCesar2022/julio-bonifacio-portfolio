@@ -19,3 +19,12 @@ test('todo se ve de una, sin animaciones ni videos', async ({ page }) => {
   await page.waitForTimeout(800);
   expect(await videos.evaluateAll((els) => els.map((v) => v.getAttribute('src')))).toEqual([null, null]);
 });
+
+test('los proyectos se deslizan sin fijar la pantalla', async ({ page }) => {
+  await page.goto('/');
+  const reel = page.locator('#mis-proyectos');
+  const viewport = reel.locator('[data-anim="viewport"]');
+  // Sin el recorrido extra: la sección mide lo que su contenido
+  expect((await reel.boundingBox())!.height).toBeLessThan(1200);
+  expect(await viewport.evaluate((el) => getComputedStyle(el).overflowX)).toBe('auto');
+});

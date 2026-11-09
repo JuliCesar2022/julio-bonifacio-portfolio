@@ -1,0 +1,218 @@
+/* Proyectos en scroll horizontal: cada proyecto ocupa casi toda la pantalla, con su texto encima.
+   Por defecto (celular, sin JavaScript o con "reducir movimiento") es un carrusel que se desliza.
+   En escritorio la sección queda fija (sticky) y las tarjetas pasan de lado al hacer scroll hacia abajo:
+   la altura extra para ese recorrido se reserva en CSS desde el inicio, así la página no salta al cargar. */
+
+.reel {
+  /* Alto de la tarjeta: toda la pantalla menos el menú y la barra de abajo */
+  --card-h: calc(100svh - 300px);
+  --card-w: min(88vw, calc(var(--card-h) * 1.9), 1680px);
+  --gap: clamp(20px, 2.6vw, 40px);
+  position: relative;
+  padding: clamp(56px, 8vw, 96px) 0 clamp(40px, 6vw, 72px);
+}
+
+.stage { display: flex; flex-direction: column; gap: 18px; }
+
+/* ---------- Encabezado y contador ---------- */
+
+.head,
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 24px;
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+
+.head { justify-content: space-between; }
+.head :global(.eyebrow) { margin-bottom: 6px; }
+
+.title { font-size: clamp(1.7rem, 2.6vw, 2.4rem); font-weight: 800; line-height: 1; letter-spacing: -.035em; }
+
+.links { display: flex; gap: 18px; font-size: .9rem; font-weight: 600; }
+.links a { color: var(--muted); text-decoration: none; }
+.links a:hover { color: var(--ink); }
+
+.foot { justify-content: center; align-items: center; font-size: .85rem; font-weight: 600; }
+
+/* Contador y barra: solo en escritorio, donde el scroll mueve las tarjetas */
+.counter { display: none; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+
+.progress {
+  display: none;
+  width: min(240px, 24vw);
+  height: 3px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.bar { height: 100%; background: var(--ink); transform: scaleX(0); transform-origin: left; }
+
+.hint { color: var(--muted); }
+
+/* ---------- Fila de tarjetas ---------- */
+
+.viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  /* Sin esto, Chrome en celular cuenta las tarjetas ocultas al medir el ancho de la página y la aleja */
+  contain: paint;
+}
+
+.viewport::-webkit-scrollbar { display: none; }
+
+.track {
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+  margin: 0;
+  /* La primera y la última quedan centradas */
+  padding: 8px max(var(--pad-x), (100% - var(--card-w)) / 2) 32px;
+  list-style: none;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  width: var(--card-w);
+  height: var(--card-h);
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / .06);
+  border-radius: calc(var(--radius) + 4px);
+  background: #1b1c22;
+  box-shadow: 0 50px 90px -45px rgb(17 18 22 / .7);
+  scroll-snap-align: center;
+}
+
+.shot { position: relative; flex: 1; overflow: hidden; }
+
+.shot img { object-fit: cover; object-position: center top; transition: scale .8s var(--ease); }
+.card:hover .shot img { scale: 1.025; }
+
+/* Toda la tarjeta lleva al proyecto (los botones de abajo son los enlaces accesibles) */
+.cover { position: absolute; inset: 0; z-index: 1; }
+
+/* Texto encima de la captura, sobre un degradado oscuro */
+.overlay {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px 32px;
+  padding: clamp(56px, 10vh, 120px) clamp(22px, 3vw, 40px) clamp(20px, 3vw, 34px);
+  background: linear-gradient(to top, rgb(12 13 16 / .94), rgb(12 13 16 / .72) 45%, transparent);
+  color: #fff;
+  pointer-events: none;
+}
+
+.overlay a { pointer-events: auto; }
+
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+
+.step {
+  background: var(--holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: .85rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+
+.tags li {
+  padding: 3px 10px;
+  border: 1px solid rgb(255 255 255 / .2);
+  border-radius: 999px;
+  background: rgb(255 255 255 / .08);
+  font-size: .72rem;
+  font-weight: 600;
+}
+
+.name { margin-top: 10px; font-size: clamp(1.8rem, 3.4vw, 3.2rem); font-weight: 800; line-height: .95; letter-spacing: -.04em; }
+.tagline { max-width: 54ch; margin-top: 10px; color: rgb(255 255 255 / .78); font-size: clamp(.95rem, 1.2vw, 1.05rem); }
+
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.actions :global(.btn) { gap: 8px; padding: 12px 20px; }
+
+.ghost { border: 1px solid rgb(255 255 255 / .3); color: #fff; }
+
+/* ---------- Escritorio: sección fija y scroll horizontal (ReelScene mueve la fila) ---------- */
+
+@media (min-width: 821px) and (prefers-reduced-motion: no-preference) {
+  /* Recorrido horizontal = (tarjetas - 1) × (ancho + espacio): se reserva como alto extra */
+  :global(.js) .reel {
+    height: calc(100svh + (var(--count) - 1) * (var(--card-w) + var(--gap)));
+    padding: 0;
+  }
+
+  :global(.js) .reel { --card-h: calc(100svh - 150px); }
+
+  /* El proyecto ocupa la pantalla; título, contador y enlaces van en una barra delgada abajo */
+  :global(.js) .stage {
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: "track track track" "title count links";
+    align-items: center;
+    gap: 10px var(--pad-x);
+    height: 100svh;
+    /* Debajo del menú fijo */
+    padding: 72px var(--pad-x) 14px;
+    /* Recorta la fila a los lados; arriba no, para que la tarjeta pueda subir sobre el bento al entrar */
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  :global(.js) .head { display: contents; }
+  :global(.js) .head > :first-child { grid-area: title; }
+  :global(.js) .head :global(.eyebrow) { display: none; }
+  :global(.js) .title { font-size: clamp(1.05rem, 1.4vw, 1.35rem); letter-spacing: -.02em; }
+  /* El margen deja libre el botón flotante de WhatsApp (abajo a la derecha) */
+  :global(.js) .links { grid-area: links; justify-self: end; margin-right: clamp(64px, 6vw, 92px); }
+  :global(.js) .foot { grid-area: count; width: auto; padding: 0; }
+  :global(.js) .viewport { grid-area: track; align-self: center; margin-inline: calc(-1 * var(--pad-x)); }
+
+  :global(.js) .viewport { overflow: visible; scroll-snap-type: none; contain: none; }
+  :global(.js) .track { padding-block: 4px 20px; padding-inline: calc((100% - var(--card-w)) / 2); will-change: transform; }
+  :global(.js) .counter { display: inline; }
+  :global(.js) .progress { display: block; }
+  :global(.js) .hint { display: none; }
+}
+
+/* ---------- Celular: carrusel con el texto debajo de la captura ---------- */
+
+@media (max-width: 820px) {
+  .reel { --card-w: min(86vw, 520px); --gap: 14px; }
+
+  .card { height: auto; }
+  .shot { flex: none; aspect-ratio: 16 / 10; }
+
+  .overlay {
+    position: static;
+    padding: 18px 18px 20px;
+    background: var(--dark);
+    pointer-events: auto;
+  }
+
+  .name { font-size: 1.7rem; }
+}
+
+@media (min-width: 821px) {
+  .hint { display: none; }
+}

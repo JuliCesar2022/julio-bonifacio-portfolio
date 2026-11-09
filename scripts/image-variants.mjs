@@ -5,8 +5,7 @@
 // Salida (no se guarda en git, se vuelve a generar):
 //   public/_img/<nombre>-<ancho>.webp   las versiones
 //   src/lib/image-variants.json         qué anchos tiene cada imagen
-import { mkdir, readdir, stat } from 'node:fs/promises';
-import { writeFile } from 'node:fs/promises';
+import { mkdir, readdir, stat, utimes, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 
@@ -26,9 +25,11 @@ async function* walk(dir) {
   }
 }
 
-const isFresh = async (output, source) => {
+// Cada versión lleva la fecha de modificación de su original. Si no coinciden, se rehace: así también
+// se rehace cuando una foto se reemplaza o se renombra (al renombrar, el archivo conserva su fecha vieja)
+const isFresh = async (output, sourceMs) => {
   try {
-    return (await stat(output)).mtimeMs >= (await stat(source)).mtimeMs;
+    return Math.trunc((await stat(output)).mtimeMs) === Math.trunc(sourceMs);
   } catch {
     return false;
   }
@@ -43,14 +44,16 @@ for await (const file of walk(SOURCE)) {
   if (manifest[name]) throw new Error(`Dos imágenes se llaman "${name}" en ${SOURCE}: cámbiale el nombre a una`);
 
   const { width } = await sharp(file).metadata();
+  const { mtime, mtimeMs } = await stat(file);
   // Solo versiones más pequeñas que el original (nunca se agranda)
   const widths = WIDTHS.filter((w) => w < width);
   manifest[name] = widths;
 
   for (const w of widths) {
     const output = path.join(OUTPUT, `${name}-${w}.webp`);
-    if (await isFresh(output, file)) continue;
+    if (await isFresh(output, mtimeMs)) continue;
     await sharp(file).resize({ width: w }).webp({ quality: QUALITY }).toFile(output);
+    await utimes(output, new Date(), mtime);
     created += 1;
   }
 }

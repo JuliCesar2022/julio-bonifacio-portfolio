@@ -76,6 +76,9 @@ scripts/                  generador de imágenes y servidor de vista previa
 (no con clases CSS, así cambiar estilos no rompe animaciones). `useScrollScene` las crea solo si
 el sistema permite movimiento y las deshace al salir. Para que la carga no se trabe en celulares:
 - GSAP se descarga aparte (`import()`), fuera del JavaScript inicial.
+- **Proyectos en scroll horizontal** (`features/home/reel`): la sección es alta y su escenario queda fijo
+  con CSS `sticky` (la altura se reserva en CSS, así la página no salta ni se desfasan los `/#enlaces`);
+  GSAP solo convierte el scroll en desplazamiento horizontal. En celular es un carrusel nativo.
 - Las secciones de abajo preparan sus animaciones cuando la página terminó de cargar y el navegador
   está libre, una por vez (`whenIdle`), o al primer scroll. La portada las prepara al montar.
 

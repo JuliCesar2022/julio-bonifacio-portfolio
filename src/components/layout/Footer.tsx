@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { ChatIcon, GitHubIcon, InstagramIcon, LinkedInIcon, MailIcon } from '@/components/ui/icons';
+import { ChatIcon, FacebookIcon, GitHubIcon, InstagramIcon, LinkedInIcon, MailIcon } from '@/components/ui/icons';
 import { Logo } from '@/components/ui/Logo';
 import { homeSection, sections } from '@/config/routes';
 import { mailUrl, site, whatsappUrl } from '@/content/site';
@@ -13,6 +13,7 @@ const socials: Social[] = [
   { label: 'GitHub', href: site.socials.github, icon: <GitHubIcon />, external: true },
   { label: 'LinkedIn', href: site.socials.linkedin, icon: <LinkedInIcon />, external: true },
   { label: 'Instagram', href: site.socials.instagram, icon: <InstagramIcon />, external: true },
+  { label: 'Facebook', href: site.socials.facebook, icon: <FacebookIcon />, external: true },
   { label: 'WhatsApp', href: whatsappUrl, icon: <ChatIcon />, external: true },
   { label: 'Correo', href: mailUrl, icon: <MailIcon /> },
 ];

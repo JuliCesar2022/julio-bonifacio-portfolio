@@ -5,12 +5,16 @@ import { useEffect, useState } from 'react';
 
 import { Logo } from '@/components/ui/Logo';
 import { homeSection, routes, sections } from '@/config/routes';
+import { cx } from '@/lib/cx';
 
 import styles from './Nav.module.css';
 
 // Los cambios de página son enlaces normales (<a>), no next/link: la portada se carga completa cada vez.
 // Al desmontarla y volverla a montar sin recargar, ScrollTrigger (GSAP 3.15) deja congeladas las
 // animaciones de scroll. Los #enlaces dentro de la misma página siguen con scroll suave.
+/** Altura del centro del menú (px desde arriba) */
+const NAV_MIDDLE = 35;
+
 export function Nav() {
   const pathname = usePathname();
   const isHome = pathname === routes.home;
@@ -26,8 +30,38 @@ export function Nav() {
     return () => window.removeEventListener('scroll', update);
   }, []);
 
+  // Sobre una sección oscura (marcada con data-nav-theme="dark") el menú pasa a fondo oscuro y textos
+  // blancos. Se mira una línea a la altura del centro del menú: cambia justo cuando el borde la cruza
+  const [onDark, setOnDark] = useState(false);
+  useEffect(() => {
+    const darkSections = document.querySelectorAll('[data-nav-theme="dark"]');
+    if (!darkSections.length) return;
+    const under = new Set<Element>();
+    let observer: IntersectionObserver | undefined;
+
+    const watch = () => {
+      observer?.disconnect();
+      under.clear();
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => (entry.isIntersecting ? under.add(entry.target) : under.delete(entry.target)));
+          setOnDark(under.size > 0);
+        },
+        { rootMargin: `-${NAV_MIDDLE}px 0px -${Math.max(0, window.innerHeight - NAV_MIDDLE - 1)}px 0px` },
+      );
+      darkSections.forEach((section) => observer!.observe(section));
+    };
+
+    watch();
+    window.addEventListener('resize', watch);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('resize', watch);
+    };
+  }, [pathname]);
+
   return (
-    <header className={scrolled ? `${styles.nav} ${styles.scrolled}` : styles.nav}>
+    <header className={cx(styles.nav, scrolled && styles.scrolled, onDark && styles.dark)}>
       <Logo href={isHome ? `#${sections.top}` : routes.home} />
       <nav aria-label="Principal">
         <a

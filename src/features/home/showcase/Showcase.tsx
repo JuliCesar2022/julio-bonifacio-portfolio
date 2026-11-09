@@ -21,7 +21,7 @@ function Lines({ lines }: { lines: readonly string[] }) {
 export function Showcase() {
   const { left, right, cta, note } = showcase;
   return (
-    <ShowcaseScene className={styles.showcase} aria-labelledby="showcase-title">
+    <ShowcaseScene className={styles.showcase} aria-labelledby="showcase-title" data-nav-theme="dark">
       <div className={styles.inner}>
         <div data-anim="left">
           <h2 className={styles.text} id="showcase-title">

@@ -40,6 +40,17 @@ export const showcase = {
   },
 };
 
+/** Proyectos en scroll horizontal (después del bento). Usa los proyectos de projects.ts, en su orden */
+export const reel = {
+  eyebrow: 'Proyectos',
+  title: { light: 'Lo que he', bold: 'construido' },
+  open: 'Ver proyecto',
+  all: 'Ver todos',
+  skip: 'Saltar',
+  /** En celular, donde se desliza con el dedo */
+  swipeHint: 'Desliza para ver más',
+};
+
 export const bento = {
   eyebrow: 'Lo que hago',
   title: { light: 'Proyectos y', bold: 'habilidades' },

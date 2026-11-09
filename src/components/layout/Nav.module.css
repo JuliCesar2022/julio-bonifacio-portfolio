@@ -6,7 +6,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px var(--pad-x);
-  transition: background-color .3s, backdrop-filter .3s;
+  color: var(--ink);
+  transition: background-color .3s, backdrop-filter .3s, color .3s;
 }
 
 /* Arriba del todo el menú es transparente; al bajar toma fondo esmerilado */
@@ -17,7 +18,7 @@
 
 .nav nav { display: flex; align-items: center; gap: clamp(14px, 3vw, 28px); }
 
-.link { color: var(--muted); text-decoration: none; font-size: .95rem; }
+.link { color: var(--muted); text-decoration: none; font-size: .95rem; transition: color .3s; }
 .link:hover,
 .link[aria-current="page"] { color: var(--ink); }
 
@@ -29,7 +30,16 @@
   text-decoration: none;
   font-size: .95rem;
   font-weight: 600;
+  transition: background-color .3s, color .3s;
 }
+
+/* Sobre secciones oscuras (vitrina, Sobre mí): fondo oscuro translúcido y textos claros */
+.nav.dark { color: #fff; }
+.nav.scrolled.dark { background-color: color-mix(in srgb, var(--dark) 62%, transparent); }
+.dark .link { color: rgb(255 255 255 / .62); }
+.dark .link:hover,
+.dark .link[aria-current="page"] { color: #fff; }
+.dark .cta { background: #fff; color: var(--ink); }
 
 /* En celular quedan el logo y Contacto */
 @media (max-width: 560px) {

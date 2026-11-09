@@ -40,8 +40,8 @@ export const site = {
   socials: {
     github: 'https://github.com/JuliCesar2022',
     linkedin: 'https://www.linkedin.com/in/julio-cesar-bonifacio-martinez-04b240352/',
-    // EDITA: pon tu enlace y aparece solo en el pie de página
-    instagram: '',
+    instagram: 'https://www.instagram.com/juliocesarbni/',
+    facebook: 'https://www.facebook.com/julicesar17/',
   },
   // EDITA: ruta del CV (ej. '/cv-julio-bonifacio.pdf' guardado en /public). Vacío = no se muestra
   cv: '',
