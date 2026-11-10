@@ -13,6 +13,7 @@ export const site = {
     'Portafolio de Julio Bonifacio, desarrollador full stack en Cartagena de Indias. Proyectos como Camila AI, Bloqui y el CRM de Cecar, hechos con React, Angular, Node.js y NestJS.',
   keywords: [
     'Julio Bonifacio',
+    'Julio César Bonifacio Martínez',
     'desarrollador full stack',
     'desarrollador web Cartagena',
     'programador Cartagena de Indias',
@@ -46,7 +47,7 @@ export const site = {
   // EDITA: ruta del CV (ej. '/cv-julio-bonifacio.pdf' guardado en /public). Vacío = no se muestra
   cv: '',
   // Fecha de la última actualización del contenido (sitemap)
-  updated: '2026-11-05',
+  updated: '2026-11-09',
 } as const;
 
 export const whatsappUrl = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.message)}`;

@@ -16,13 +16,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name} — ${site.role} en Cartagena`, template: `%s — ${site.name}` },
   description: site.description,
-  applicationName: `${site.name} — Portafolio`,
+  // El mismo nombre que el logo y los datos del sitio, para que Google lo use como nombre del sitio
+  applicationName: site.name,
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   keywords: [...site.keywords],
   // Sin "robots": por defecto todo se indexa, y la 404 queda con noindex (lo pone Next)
   icons: {
     icon: [
+      // Google pide el icono en múltiplos de 48 px para mostrarlo en los resultados de búsqueda
+      { url: '/favicon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
       { url: '/favicon.svg', type: 'image/svg+xml' },
     ],

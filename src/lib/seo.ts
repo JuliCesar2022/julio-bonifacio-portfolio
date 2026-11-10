@@ -52,7 +52,8 @@ export function personJsonLd(image: string) {
     '@type': 'Person',
     '@id': personId,
     name: site.name,
-    alternateName: site.legalName,
+    // Las formas en que lo buscan: completo y corto (Google relaciona todas con la misma persona)
+    alternateName: [site.legalName, 'Julio César Bonifacio', 'Julio Bonifacio Martínez'],
     url: site.url,
     image: absolute(image),
     email: `mailto:${site.email}`,
@@ -66,12 +67,18 @@ export function personJsonLd(image: string) {
   };
 }
 
+/**
+ * El sitio. Google toma "name" como nombre del sitio en los resultados (el que sale arriba del enlace,
+ * como "LinkedIn"): corto e igual al logo, al título y a og:site_name. Si no le convence, prueba con
+ * los alternativos en orden; el dominio va de último como respaldo, según la guía de Google.
+ */
 export function websiteJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: `${site.name} — Portafolio`,
-    url: site.url,
+    name: site.name,
+    alternateName: [site.legalName, new URL(site.url).host],
+    url: `${site.url}/`,
     inLanguage: 'es',
     author: { '@id': personId },
   };

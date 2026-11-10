@@ -45,7 +45,8 @@ export function Footer() {
       </div>
       <div className={styles.bottom}>
         <span>
-          © {site.updated.slice(0, 4)} {site.name}
+          {/* Nombre completo visible: así Google también encuentra el sitio al buscarlo entero */}
+          © {site.updated.slice(0, 4)} {site.legalName}
         </span>
         <a href={`#${sections.top}`}>Volver arriba ↑</a>
       </div>
